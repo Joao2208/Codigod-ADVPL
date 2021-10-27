@@ -2,9 +2,8 @@
 #include 'parmtype.ch'
 
 /*/{Protheus.doc} MBRSA2
-//TODO DescriÁ„o auto-gerada.
-@author RCTI TREINAMENTOS
-@since 2018
+@author joao.gomes	
+@since 2021
 @version undefined
 
 @type function
@@ -51,9 +50,9 @@ User Function BInclui(cAlias,nReg,nOpc)
 	Local nOpcao := 0
 	nOpcao := AxInclui(cAlias,nReg,nOpc)
 		If nOpcao == 1
-			MsgInfo("Inclus„o efetuada com sucesso!")
+			MsgInfo("Inclus√£o efetuada com sucesso!")
 		Else
-			MsgAlert("Inclus„o Cancelada!")
+			MsgAlert("Inclus√£o Cancelada!")
 		EndIf	
 Return
 
@@ -61,9 +60,9 @@ User Function BAltera(cAlias,nReg,nOpc)
 	Local nOpcao := 0
 	nOpcao := AxAltera(cAlias,nReg,nOpc)
 		If nOpcao == 1
-			MsgInfo("AlteraÁ„o efetuada com sucesso!")
+			MsgInfo("Altera√ß√£o efetuada com sucesso!")
 		Else
-			MsgAlert("AlteraÁ„o Cancelada!")
+			MsgAlert("Altera√ß√£o Cancelada!")
 		EndIf	
 Return Nil
 
@@ -71,20 +70,20 @@ User Function BDeleta(cAlias,nReg,nOpc)
 	Local nOpcao := 0
 	nOpcao := AxDeleta(cAlias,nReg,nOpc)
 	If nOpcao == 1                                 
-		MsgInfo("Exclus„o cancelada!")           
+		MsgInfo("Exclus√£o cancelada!")           
 	Else
-		MsgAlert("Exclus„o efetuada com sucesso!")
+		MsgAlert("Exclus√£o efetuada com sucesso!")
 	Endif
 Return Nil
 
 User Function BLegenda()
 	Local aLegenda := {}
 	
-	AADD(aLegenda,{"BR_VERDE"       ,"Pessoa FÌsica"})
-	AADD(aLegenda,{"BR_AMARELO" ,"Pessoa JurÌdica" 	})
-	AADD(aLegenda,{"BR_LARANJA" ,"ExportaÁ„o" 		})
+	AADD(aLegenda,{"BR_VERDE"       ,"Pessoa F√≠sica"})
+	AADD(aLegenda,{"BR_AMARELO" ,"Pessoa Jur√≠dica" 	})
+	AADD(aLegenda,{"BR_LARANJA" ,"Exporta√ß√£o" 		})
 	AADD(aLegenda,{"BR_MARROM" 	,"Fornecedor Rural" })
-	AADD(aLegenda,{"BR_PRETO" 	,"N„o Classificado" })
+	AADD(aLegenda,{"BR_PRETO" 	,"N√£o Classificado" })
 	
 	BrwLegenda(cCadastro, "Legenda",aLegenda)
 	
