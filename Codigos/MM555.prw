@@ -17,7 +17,7 @@ If Type('cFilAnt') == 'U'
     RPCSetType(3)
     lEnv := RPCSetEnv('01', '010101')
     IF !lEnv
-        ConOut("MM550 - Não conseguiu preparar ambiente")
+        ConOut("MM555 - Não conseguiu preparar ambiente")
         Return
     EndIf
 EndIf
@@ -30,8 +30,8 @@ if cEstNeg != "N"
                 GetMV("MV_RELACNT")                                                   ,;
                 GetMV("MV_RELAUSR",,"madeiramadeira")                                 ,;
                 GetMV("MV_RELPSW")                                                    ,;
-                "joao.gomes@madeiramadeira.com.br"                                    ,;
-                "joao.gomes@madeiramadeira.com.br"                                    ,;
+                GetMV("MV_RELFROM")                                                   ,;
+                "protheus@madeiramadeira.com.br"                                      ,;
                 "*****!!Paramentro do MV_ESTNEG errado!!*****"                        ,;
                 "O parametro do MV_ESTNEG esta diferente do valor padrao 'N'"         ) 
   

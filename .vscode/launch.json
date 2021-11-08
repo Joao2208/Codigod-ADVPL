@@ -7,7 +7,7 @@
 			"name": "TOTVS Language Debug",
 			"program": "${command:AskForProgramName}",
 			"cwb": "${workspaceFolder}",
-			"smartclientBin": "C:/Users/joao.gomes/Documents/Protheus/smartclient-dev/smartclient-dev/smartclient_ZB4Z6T_DES",
+			"smartclientBin": "C:/Users/joao.gomes/Documents/Protheus/smartclient-dev/smartclient-dev/smartclient_ZB4Z6T_DES/smartclient.exe",
 			"isMultiSession": true,
 			"enableTableSync": true
 		}
@@ -16,7 +16,11 @@
 		{
 			"label": "SIGACOM",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_MM555",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "SIGACOM"
+	"lastProgramExecuted": "U_MM555"
 }
