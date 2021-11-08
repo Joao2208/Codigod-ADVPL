@@ -1,33 +1,41 @@
 #include "protheus.ch"
 #include "rwmake.ch"
 
-//-------------------------------------------------------------------------------
-/*/
-{Protheus.doc} MM555
-Vereificação de parametros, com aviso via email
+/*/{Protheus.doc} MM555
+    (Verificação de parametros)
+    @type  Function
+    @author user
+    @since 08/11/2021
+    @version 1.0
+    /*/
 
-@return 
-@author Joao Gomes
-@since 08/11/2021
-/*/
-//-------------------------------------------------------------------------------
 
 User Function MM555()
-Local cEstNeg    := GetMV("MV_ESTNEG")
+Local cEstNeg    := ""//GetMV("MV_ESTNEG")
+
+If Type('cFilAnt') == 'U'
+    RPCSetType(3)
+    lEnv := RPCSetEnv('01', '010101')
+    IF !lEnv
+        ConOut("MM550 - Não conseguiu preparar ambiente")
+        Return
+    EndIf
+EndIf
+
+cEstNeg := GetMV("MV_ESTNEG")
 
 if cEstNeg != "N"
-    RpcSetEnv('01', '010101')
 	// Envia Email 
 	U_MM020(    GetMV("MV_RELSERV")                                                   ,;
                 GetMV("MV_RELACNT")                                                   ,;
                 GetMV("MV_RELAUSR",,"madeiramadeira")                                 ,;
                 GetMV("MV_RELPSW")                                                    ,;
-                GetMV("MV_RELFROM")                                                   ,;
-                "protheus@madeiramadeira.com.br"                                      ,;
-                "*****!!Paramentro do MV_ESTNEG esta igual ao do padrão 'N'!!*****"   )
-
-	RpcClearEnv()    
+                "joao.gomes@madeiramadeira.com.br"                                    ,;
+                "joao.gomes@madeiramadeira.com.br"                                    ,;
+                "*****!!Paramentro do MV_ESTNEG errado!!*****"                        ,;
+                "O parametro do MV_ESTNEG esta diferente do valor padrao 'N'"         ) 
+  
 endif
-
+    RpcClearEnv()  
 Return
 
