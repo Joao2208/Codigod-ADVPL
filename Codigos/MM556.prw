@@ -7,7 +7,7 @@
     @author user
     @since 08/11/2021
     @version 1.0
-    /*/
+/*/
 
 
 User Function MM556()
