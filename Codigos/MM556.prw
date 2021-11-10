@@ -10,7 +10,7 @@
 /*/
 
 
-User Function MM55() 
+User Function MM556() 
 Local aParam 
 Local oFile
 Local nLin 
@@ -53,8 +53,11 @@ for nLin := 1 to nCount
                 GetMV("MV_RELPSW")                                                                                  ,;
                 "joao.gomes@madeiramadeira.com.br"                                                                  ,;
                 "joao.gomes@madeiramadeira.com.br"                                                                  ,;
-                "***!!Paramentro " + aParam[nLin][1] + " com erro!!***"                                                ,;
-                "O parametro " + aParam[nLin][1] + " esta com um valor diferente do padrao que eh "+ aParam[nLin][2])
+                "***!!Paramentro " + aParam[nLin][1] + " com erro!!***"                                             ,;
+                "***********************************************************************************************"   ,;
+                "O parametro " + aParam[nLin][1] + " esta com um valor diferente do padrao que eh "+ aParam[nLin][2],;
+                "***********************************************************************************************"   ,;
+                )
     endif 
 next  
     RpcClearEnv()  
