@@ -20,7 +20,15 @@
 		{
 			"label": "U_MM555",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_MM55",
+			"description": "<nil>"
+		},
+		{
+			"label": "SIGA",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "U_MM555"
+	"lastProgramExecuted": "U_MM55"
 }

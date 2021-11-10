@@ -10,19 +10,15 @@
 /*/
 
 
-User Function MM556()
-Local cParam 
-Local cFile := 'MM556param.txt'
+User Function MM55() 
+Local aParam 
 Local oFile
-oFile := FWFileReader():New(cFile)
-
-if (oFile:Open())
-    while (oFile:hasLine())
-        cParam := File:GetLine
-    end
-    oFile:close()         
-endif
-
+Local nLin 
+Local nColun := 1
+Local nCount
+Local aErro
+Local nE := 0
+Local cErro
 
 If Type('cFilAnt') == 'U'
     RPCSetType(3)
@@ -33,18 +29,39 @@ If Type('cFilAnt') == 'U'
     EndIf
 EndIf
 
-if Empty(cParam) 
+oFile := tFile():Open("C:\Users\joao.gomes\Documents\CodigosGit\Codigod-ADVPL\Codigos\MM556param.txt",,"r")
+
+if !oFile:lerr
+    aParam := oFile:GetContent("=")
+endif
+
+oFile:close()
+FreeOBJ(oFile)
+
+nCount := Len(aParam)
+
+for nLin := 1 to nCount
+    if GetMV(aParam[nLin][nColun]) != aParam[nLin][nColun+1]
+        cErro := aParam[nLin][nColun]
+    endif   
+    aErro[nE] := cErro 
+next  
+    
+    
+    
+/*/if Empty(cParam) 
 	// Envia Email 
 	U_MM020(    GetMV("MV_RELSERV")                                                     ,;
                 GetMV("MV_RELACNT")                                                     ,;
                 GetMV("MV_RELAUSR",,"madeiramadeira")                                   ,;
                 GetMV("MV_RELPSW")                                                      ,;
-                "joao.gomes@madeiramadeira.com.br"/*GetMV("MV_RELFROM")*/               ,;
+                "joao.gomes@madeiramadeira.com.br"/*GetMV("MV_RELFROM")               ,;
                 "joao.gomes@madeiramadeira.com.br"                                      ,;
                 "***!!Paramentro com erro!!***"                                         ,;
                 "O parametro do esta diferente do valor padrao"               ) 
   
 endif
-    RpcClearEnv()  
+    RpcClearEnv() 
+*/
 Return
 
