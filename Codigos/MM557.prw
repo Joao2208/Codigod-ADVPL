@@ -2,7 +2,7 @@
 #include "rwmake.ch"
 
 /*/{Protheus.doc} MM556
-    (VerificaÃ§Ã£o de parametros)
+    (Verificação de parametros)
     @type  Function
     @author user
     @since 08/11/2021
@@ -22,13 +22,13 @@ If Type('cFilAnt') == 'U'
     RPCSetType(3)
     lEnv := RPCSetEnv('01', '010101')
     IF !lEnv
-        ConOut("MM556 - NÃ£o conseguiu preparar ambiente")
+        ConOut("MM556 - Não conseguiu preparar ambiente")
         Return
     EndIf
 EndIf
 
 If !File(cFile)
-    ConOut("MM556 - NÃ£o conseguiu encontrar o arquivo")
+    ConOut("MM556 - Não conseguiu encontrar o arquivo")
     Return
 EndIf
 
