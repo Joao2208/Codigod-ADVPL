@@ -10,7 +10,7 @@
 /*/
 
 
-User Function MM556() 
+User Function MM55() 
 Local aParam 
 Local oFile
 Local nLin 
@@ -47,7 +47,7 @@ for nLin := 1 to nCount
     cParam := AllTrim(CValToChar(GetMV(aParam[nLin][1])))
 
     if cParam != AllTrim(aParam[nLin][2])
-        U_MM020(    GetMV("MV_RELSERV")                                                                             ,;
+        U_MM020(GetMV("MV_RELSERV")                                                                             ,;
                 GetMV("MV_RELACNT")                                                                                 ,;
                 GetMV("MV_RELAUSR",,"madeiramadeira")                                                               ,;
                 GetMV("MV_RELPSW")                                                                                  ,;
@@ -56,8 +56,7 @@ for nLin := 1 to nCount
                 "***!!Paramentro " + aParam[nLin][1] + " com erro!!***"                                             ,;
                 "***********************************************************************************************"   ,;
                 "O parametro " + aParam[nLin][1] + " esta com um valor diferente do padrao que eh "+ aParam[nLin][2],;
-                "***********************************************************************************************"   ,;
-                )
+                "***********************************************************************************************"   ,)
     endif 
 next  
     RpcClearEnv()  
