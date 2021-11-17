@@ -1,8 +1,10 @@
-﻿
+﻿No caso de parametros do tipo data, colocar apenas os dois ultimos digitos do ano. Ex:"20/10/19"
 MV_ESTNEG=N
 MM_010VSB2=.T. 
 MV_INDNEG=E 
 MV_MT300NG=.T. 
 MV_NEGESTR=F
 MV_EXCLNFN=.T.
-MV_NG2ESTN=S 
+MV_NG2ESTN=S
+MM_335THDS=500
+MV_CTBLOCK=31/01/19
