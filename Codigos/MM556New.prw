@@ -18,6 +18,8 @@ Local nCount
 Local cParam
 Local cFile := "/scripts/MM556param.txt"
 Local aErros := {}
+Local cMsg
+Local cMsgEr
 
 If Type('cFilAnt') == 'U'
     RPCSetType(3)
@@ -51,17 +53,36 @@ for nLin := 1 to nCount
     endif 
 next  
 
-for 
+
+cMsg :=('<table border="1" cellspacing="0" cellpadding="10">')
+cMsg +=("<tr>")
+cMsg +=("<th>Parametro</th>")
+cMsg +=("<th>Valor Recebido</th>")
+cMsg +=("<th>Valor Padrão</th>")
+cMsg +=("</tr>")
+for nLin := 1 to len(aErros)
+    cMsg +=("<tr>")
+    cMsg +=("<td>" + aErros[nLin][1] +"</td>")
+    cMsg +=("<td>" + aErros[nLin][2] + "</td>")
+    cMsg +=("<td>" + aErros[nLin][3] + "</td>")
+    cMsg +=("</tr>")
+next
+cMsg += ("</table>")
 
 if len(aErros) != 0 
-                U_MM020(GetMV("MV_RELSERV")                                                                         ,;
-                GetMV("MV_RELACNT")                                                                                 ,;
-                GetMV("MV_RELAUSR",,"madeiramadeira")                                                               ,;
-                GetMV("MV_RELPSW")                                                                                  ,;
-                "joao.gomes@madeiramadeira.com.br"                                                                  ,;
-                "joao.gomes@madeiramadeira.com.br"                                                                  ,;
-                "***!!Paramentro(s) com erro!!***"                                                                  ,;
-                "O parametro(s) " + aErros + " esta com um valor diferente do padrao que eh "        )
+    if len(aErros) == 1
+        cMsgEr := "O seguinte parametro está com um valor diferente do seu padrão: <br><br>" + cMsg
+    elseif len(aErros) >= 2
+        cMsgEr := "Os seguintes parametros estão com os valores diferentes dos seus padrões: <br><br>" + cMsg
+    endif
+    U_MM020(GetMV("MV_RELSERV")                             ,;
+    GetMV("MV_RELACNT")                                     ,;
+    GetMV("MV_RELAUSR",,"madeiramadeira")                   ,;
+    GetMV("MV_RELPSW")                                      ,;
+    "joao.gomes@madeiramadeira.com.br"                      ,;
+    "joao.gomes@madeiramadeira.com.br"                      ,;
+    "*!Paramentro(s) com valores alterados*"                ,;
+    cMsgEr                                                  )
 endif
     RpcClearEnv()  
 Return
