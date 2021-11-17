@@ -2,7 +2,7 @@
 #include "rwmake.ch"
 
 /*/{Protheus.doc} MM556
-    (Verificação de parametros)
+    (Verificação de parametros da SX6)
     @type  Function
     @author user
     @since 08/11/2021
