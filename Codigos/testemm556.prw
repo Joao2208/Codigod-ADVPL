@@ -10,13 +10,13 @@
 /*/
 
 
-User Function MM556() 
+User Function teste() 
 Local aFile 
 Local oFile
 Local nLin 
 Local nCount
 Local cParam
-Local cFile := "/scripts/MM556param.txt"
+Local cFile :=  "C:\Users\joao.gomes\Documents\CodigosGit\Codigod-ADVPL\Codigos\MM556param.txt"//"/scripts/MM556param.txt"
 Local aErros := {}
 Local cMsg
 Local cMsgEr
@@ -62,7 +62,7 @@ for nLin := 1 to nCount
     if cParam != AllTrim(aFile[nLin][2])
         Aadd(aErros, {aFile[nLin][1], cParam, aFile[nLin][2]})        
     endif 
-next 
+next  
 
 //Cria tabela com os parametros que estão diferente do padrão
 cMsg :=('<table border="1" cellspacing="0" cellpadding="10">')
@@ -91,11 +91,10 @@ if len(aErros) != 0
     GetMV("MV_RELACNT")                                     ,;
     GetMV("MV_RELAUSR",,"madeiramadeira")                   ,;
     GetMV("MV_RELPSW")                                      ,;
-    GetMV("MV_RELFORM")                                     ,;
-    "protheus@madeiramadeira.com.br"                        ,;
+    "joao.gomes@madeiramadeira.com.br"                      ,;
+    "joao.gomes@madeiramadeira.com.br"                      ,;
     "!Paramentro(s) com valores alterados!"                 ,;
     cMsgEr                                                  )
 endif
     RpcClearEnv()  
 Return
-
