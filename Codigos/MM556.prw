@@ -2,7 +2,7 @@
 #include "rwmake.ch"
 
 /*/{Protheus.doc} MM556
-    (Função que verifica diariamente o valor de parametros cadastrados na SX6)
+    (Função que verifica diariamente os valores de parametros cadastrados na SX6)
     @type  Function
     @author Joao Gomes
     @since 08/11/2021
@@ -48,10 +48,10 @@ FreeOBJ(oFile)
 
 nCount := Len(aFile)
 
-//Verifica se tem parametros com o valor diferente do padrão
+//Verifica se tem parametros com o valor diferente do padrão 
 for nLin := 1 to nCount
     cParam := GetMV(aFile[nLin][1])
-    
+    //Verifica de o parametro é do tipo data
     if valtype(cParam) == "D"
         cParam := DToS(cParam)
         cParam := SubStr(cParam, 7, 2) + "/" + SubStr(cParam, 5, 2) + "/" + SubStr(cParam, 1, 4)

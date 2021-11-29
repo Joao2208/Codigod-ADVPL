@@ -36,7 +36,11 @@
 		{
 			"label": "U_teste",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_MM560",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "U_teste"
+	"lastProgramExecuted": "U_MM560"
 }
