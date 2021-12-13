@@ -40,6 +40,14 @@
 		{
 			"label": "U_MM560",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_testando",
+			"description": "<nil>"
+		},
+		{
+			"label": "U_MM556",
+			"description": "<nil>"
 		}
 	],
 	"lastProgramExecuted": "U_MM560"
