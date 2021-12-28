@@ -52,7 +52,15 @@
 		{
 			"label": "si",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_",
+			"description": "<nil>"
+		},
+		{
+			"label": "U_mm561",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "sigacom"
+	"lastProgramExecuted": "U_mm561"
 }
