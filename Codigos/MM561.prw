@@ -59,7 +59,7 @@ User Function MM561()
         DBSelectArea("SX6")
         SX6->(DBGOTOP())
 
-        //Identifica todos os parametros que estão no cDelet e que possuirem as Palavras MADEIRA E/OU BULKYLOG no cteudo, logo em seguida limpa o conteudo dos que tiverem BULKYLOG/MADEIRA e deleta os encontrados no cDelet 
+        //Identifica todos os parametros que estão no cDelet ou que possuirem as Palavras MADEIRA E/OU BULKYLOG no cteudo, logo em seguida limpa o conteudo dos que tiverem BULKYLOG/MADEIRA e deleta os encontrados no cDelet 
         while !SX6->(EOF())
             cParVal := SX6->X6_CONTEUD
             cParName := SX6->X6_VAR
