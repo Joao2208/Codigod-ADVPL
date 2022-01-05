@@ -67,9 +67,7 @@ User Function MM561()
             if VALTYPE(cParVal) == "C"
                 if 'MADEIRA' $ UPPER(cParVal) .or. 'BULKYLOG' $ UPPER(cParVal)
                     RecLock("SX6", .F.)
-	    	            SX6->X6_CONTEUD := ""
-                        SX6->X6_CONTSPA := ""
-                        SX6->X6_CONTENG := ""
+	    	            PUTMV(SX6->X6_VAR, "")
                     Aadd(aParam, cParName)
 	                SX6->(MsUnlock())
                 elseif AllTrim(Upper(cParName)) $ cDelet 
