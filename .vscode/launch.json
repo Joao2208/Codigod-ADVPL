@@ -60,7 +60,19 @@
 		{
 			"label": "U_mm561",
 			"description": "<nil>"
+		},
+		{
+			"label": "S",
+			"description": "<nil>"
+		},
+		{
+			"label": "u",
+			"description": "<nil>"
+		},
+		{
+			"label": "mm",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "U_mm561"
+	"lastProgramExecuted": "mm"
 }

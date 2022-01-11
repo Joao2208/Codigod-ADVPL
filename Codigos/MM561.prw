@@ -11,9 +11,10 @@
 User Function MM561() 
     Local aAllGroup := {}
     Local aParam := {}
-    Local cParName
     Local nCount := 1
+    Local nStatus 
     Local cFiL
+    Local cParName
     Local cAmbName := GetEnvServer()
     Local cMsg := "Voce está no ambiente: " + cAmbName 
     Local cParVal
@@ -22,7 +23,7 @@ User Function MM561()
 
     //Verifica se pode rodar no ambiente conectado
     if "ZB4Z6T_PRD" $ cAmbName  
-        If IsBlind()
+        If IsBlind
             ConOut("Rotina não permitida no ambiente de Producao. Ambiente: " + cAmbName)
         Else
             Help(,,"Rotina não permitida neste ambiente." ,,cMsg,1,0)
@@ -66,74 +67,135 @@ User Function MM561()
             cFil := SX6->X6_FIL
             if VALTYPE(cParVal) == "C"
                 if 'MADEIRA' $ UPPER(cParVal) .or. 'BULKYLOG' $ UPPER(cParVal)
-                    RecLock("SX6", .F.)
-	    	            PUTMV(SX6->X6_VAR, "")
+	    	        PUTMV(SX6->X6_VAR, "")
                     Aadd(aParam, cParName)
-	                SX6->(MsUnlock())
                 elseif AllTrim(Upper(cParName)) $ cDelet 
                     RecLock("SX6", .F.)
                         SX6->(DBDelete())
-                    Aadd(aParam, cParName)
                     SX6->(MsUnlock())
+                    Aadd(aParam, cParName)
                 endif
             endif
             SX6->(DbSkip())
         end
 
         //SRA - RA_SALARIO, RA_ANTEAUM (Cadastro de funcionário)
-        cQuery := "UPDATE " + RetSqlNAme("SRA") + " SET RA_SALARIO = RA_SALARIO / 0.023, RA_ANTEAUM = RA_ANTEAUM / 0.023"
-        TCSqlExec(cQuery)
+        cQuery := "UPDATE " + RetSqlNAme("SRA") + " SET RA_SALARIO = RA_SALARIO * 0.023, RA_ANTEAUM = RA_ANTEAUM * 0.023"
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
         
         //SRD - RD_VALOR, RD_VALORBA (Acumulado das folhas)
         //--UPDATE SRD010 SET RD_VALOR = RD_VALOR / 0.023, RD_VALORBA = RD_VALORBA / 0.023
-
         //SRC - RC_VALOR, RC_VALORBA (Movimento mês)
         cQuery := "UPDATE " + RetSqlName("SRC") + " SET RC_VALOR = RC_VALOR * 0.023, RC_VALORBA = RC_VALORBA * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //SRH - RH_SALMES, RH_SALDIA, RH_SALHRS, RH_SALARIO (Cabeçalho Férias)
         cQuery := "UPDATE " + RetSqlNAme("SRH") + " SET RH_SALMES = RH_SALMES * 0.023, RH_SALDIA = RH_SALDIA * 0.023, RH_SALHRS = RH_SALHRS * 0.    023RH_SALARIO = RH_SALARIO * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //SRG - RG_NORMAL, RG_DESCANS, RG_SALMES, RG_SALDIA, RG_SALHORA (Cabeçalho Rescisão)
         cQuery := "UPDATE " + RetSqlNAme("SRG") + " SET RG_NORMAL = RG_NORMAL * 0.023, RG_DESCANS = RG_DESCANS * 0.023, RG_SALMES = RG_SALMES * 023, RG_SALDIA = RG_SALDIA * 0.023, RG_SALHORA = RG_SALHORA * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //SRR - RR_VALOR (ítens férias/rescisões)
         cQuery := "UPDATE " + RetSqlNAme("SRR") + " SET RR_VALOR = RR_VALOR * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //SR3 - R3_VALOR, R3_ANTEAUM (Alterações salariais)
         cQuery := "UPDATE " + RetSqlNAme("SR3") + " SET R3_VALOR = R3_VALOR * 0.023, R3_ANTEAUM = R3_ANTEAUM * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //SRZ - RZ_VALOR (Contabilização)
         cQuery := "UPDATE " + RetSqlNAme("SRZ") + " SET RZ_VAL = RZ_VAL * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //RC1 - RC1_VALOR (Títulos)
         cQuery := "UPDATE " + RetSqlNAme("RC1") + " SET RC1_VALOR = RC1_VALOR * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //T1V - T1V_VLSLFX (Dados do contrato - TAF)
         cQuery := "UPDATE " + RetSqlNAme("T1V") + " SET T1V_VLSLFX = T1V_VLSLFX * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //T3R - T3R_VLRLIQ (Folha enviada para Esocial S1210 - TAF)
         cQuery := "UPDATE " + RetSqlNAme("T3R") + " SET T3R_VLRLIQ = T3R_VLRLIQ * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //RAZ - RAZ_VALOR (Remuneração - S1200 - TAF)
         cQuery := "UPDATE " + RetSqlNAme("RAZ") + " SET RAZ_VALOR = RAZ_VALOR * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //T6W - T6W_VLREMU (Remuneração - S1200 - TAF)
         cQuery := "UPDATE " + RetSqlNAme("T6W") + " SET T6W_VLREMU = T6W_VLREMU * 0.023"
-        TCSqlExec(cQuery)
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
 
         //CUP - CUP_VLSLFX (Envio de funcionários e diretores - S2200 e S2300 - TAF)
         cQuery := "UPDATE " + RetSqlNAme("CUP") + " SET CUP_VLSLFX = CUP_VLSLFX * 0.023"
-        TCSqlExec(cQuery)
-
+        nStatus := TCSqlExec(cQuery)
+        if nStatus < 0 
+            ConOut("Falha ao executar a query")
+        else
+            ConOut("Sucesso ao executar a query")
+        endif
     next
 Return 
