@@ -72,7 +72,15 @@
 		{
 			"label": "mm",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_MM565",
+			"description": "<nil>"
+		},
+		{
+			"label": "U_MM169",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "mm"
+	"lastProgramExecuted": "U_MM565"
 }
