@@ -16,7 +16,7 @@ Local oFile
 Local nLin 
 Local nCount
 Local cParam
-Local cFile := "/scripts/MM556param.txt"
+Local cFile := "/que scripts/MM556param.txt"
 Local aErros := {}
 Local cMsg
 Local cMsgEr
