@@ -88,7 +88,11 @@
 		{
 			"label": "U_MM565tes",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_MM571",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "U_MM565"
+	"lastProgramExecuted": "SIGA"
 }

@@ -27,7 +27,6 @@ User Function MM565()
     Local cConti
 
     while cConti != "Nao"
-    
         //Monta a tela inicial para escolha do tipo de conteudo que deseja selecionar
         DEFINE MSDIALOG oDlgPar TITLE "Arquivos" FROM 001,001 TO 130,290 PIXEL
             @ 015,020 SAY "Escolha uma pasta ou um arquivo do sistema: " SIZE 60,50 PIXEL OF oDlgPar
@@ -59,13 +58,11 @@ User Function MM565()
             MsgInfo("Nenhuma opcao foi selecionada!", "Aviso")
         endif  
 
-
         if (lSuccess)
             MsgInfo("Arquivos enviados com sucesso", "Aviso")
         else
             MsgAlert("Erro ao enviar arquivos", "Alerta")
         endif
-
         //Gera uma tela para informar se deseja exportar mais arquivos ou não
         DEFINE MSDIALOG oDlgPar TITLE "Finalizacao" FROM 001,001 TO 130,290 PIXEL
             @ 015,020 SAY "Deseja continuar fazendo a exportacao de arquivos ?" SIZE 65,50 PIXEL OF oDlgPar
