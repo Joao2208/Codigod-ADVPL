@@ -6,24 +6,7 @@
 	"permissions": {
 		"authorizationtoken": ""
 	},
-	"connectedServer": {
-		"id": "thux5cxmlll16jp5bj90ck0gdlo1b",
-		"type": "totvs_server_protheus",
-		"name": "Debug_01",
-		"port": 13514,
-		"address": "zb4z6t-prd-protheus.totvscloud.com.br",
-		"buildVersion": "7.00.191205P",
-		"secure": true,
-		"includes": [
-			"C:\\totvs\\projetos\\IncludesP11"
-		],
-		"environments": [
-			"ZB4Z6T_PRD_DEBUG_01"
-		],
-		"username": "JOAO.GOMES",
-		"environment": "ZB4Z6T_PRD_DEBUG_01",
-		"token": "djM6dGh1eDVjeG1sbGwxNmpwNWJqOTBjazBnZGxvMWI6MTp6YjR6NnQtcHJkLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjEzNTE0OjE6Ny4wMC4xOTEyMDVQOjM=:djE6WkI0WjZUX1BSRF9ERUJVR18wMTpKT0FPLkdPTUVTOkhTVEpLM3FUNEdZekhQbUVMSTVTQzMvQkhrSDV4ekU2d05MR1RmN2lnQms9|djI6MTY0OTE2MjUxODowOjE6MQ==.HMl440rgMsYHlTdE9cCl5rkUcRaZoVk1dwdwc+EfrkX8tISw31gSaOeiMpF/5RtlDtA+URUVR0f8YN3GSJejXqOVLYNEND4UZvzoS5n3LB4WBKuwsLNbl7NLer34OUsUG8RnNMRNeSBqwYjXEOjCTr+wuaYOl5Vz0qADJx/58NSvqWTugVoAFd87M2S/o0XzCctkS/T54li+6NTRmIodfWRHGb1RomfNCRHw0fy07jir8sIZOS7AHvZUvQ2cMw6tYZ7lGgk8qkmUtTisk/uphB3JGmXPW5oeUFkGM33taAI51MIYbzHTQk7k1G3RJdie6UGrcUNUldAKvl4wmwDxPA=="
-	},
+	"connectedServer": {},
 	"configurations": [
 		{
 			"id": "sxrimhrk1dkx7tlq0mo2mgm7npn3r",
@@ -77,7 +60,7 @@
 			],
 			"username": "JOAO.GOMES",
 			"environment": "ZB4Z6T_PRD_DEBUG_01",
-			"token": "djM6dGh1eDVjeG1sbGwxNmpwNWJqOTBjazBnZGxvMWI6MTp6YjR6NnQtcHJkLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjEzNTE0OjE6Ny4wMC4xOTEyMDVQOjM=:djE6WkI0WjZUX1BSRF9ERUJVR18wMTpKT0FPLkdPTUVTOkhTVEpLM3FUNEdZekhQbUVMSTVTQzMvQkhrSDV4ekU2d05MR1RmN2lnQms9|djI6MTY0OTE2MjUxODowOjE6MQ==.HMl440rgMsYHlTdE9cCl5rkUcRaZoVk1dwdwc+EfrkX8tISw31gSaOeiMpF/5RtlDtA+URUVR0f8YN3GSJejXqOVLYNEND4UZvzoS5n3LB4WBKuwsLNbl7NLer34OUsUG8RnNMRNeSBqwYjXEOjCTr+wuaYOl5Vz0qADJx/58NSvqWTugVoAFd87M2S/o0XzCctkS/T54li+6NTRmIodfWRHGb1RomfNCRHw0fy07jir8sIZOS7AHvZUvQ2cMw6tYZ7lGgk8qkmUtTisk/uphB3JGmXPW5oeUFkGM33taAI51MIYbzHTQk7k1G3RJdie6UGrcUNUldAKvl4wmwDxPA=="
+			"token": "djM6dGh1eDVjeG1sbGwxNmpwNWJqOTBjazBnZGxvMWI6MTp6YjR6NnQtcHJkLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjEzNTE0OjE6Ny4wMC4xOTEyMDVQOjM=:djE6WkI0WjZUX1BSRF9ERUJVR18wMTpKT0FPLkdPTUVTOlVSNFNqeWxaZ1djM0pjUEFaOThYcytVaVdQV1FFL3YzUGRBNkI5Ti9lNjA9|djI6MTY0OTE2NjU2MTowOjE6MQ==.G5mFhbacdPjRhJi69vV3yXe914EJX+OA2BBpWB+rvxbpVHX37NpDvC71hQv3EBYEnUTj9xW6EcsP8EkqgWqgHX7vGJjkqFNwkJJ2YR6v51doZv+TxkyXMhU8Ab+WHaVmafNG8LjE96W6J+48/vh86vI+vo7V6KvU5pBBQ8UQpO6hmpsnqv+d0XZ++ZFV3UnehcWyh0LSAFw/6wMzeBmCVL97t9cwyKga1AwENIJrexyuqn++iRq8CiBwWPoNrbjojJIa75e3J/D1Lt6LhZY+LEE1yCMHzlyK5/1ADHxoDHLUbbY2JP9z1f/zMF1SJwcBCJrXSgP3QFIy+Smkpi7E5A=="
 		},
 		{
 			"id": "7wh96d8ppdl1djths0h5mkq312qw",
@@ -131,7 +114,7 @@
 			"thux5cxmlll16jp5bj90ck0gdlo1b:ZB4Z6T_PRD_DEBUG_01",
 			{
 				"id": "thux5cxmlll16jp5bj90ck0gdlo1b",
-				"token": "djM6dGh1eDVjeG1sbGwxNmpwNWJqOTBjazBnZGxvMWI6MTp6YjR6NnQtcHJkLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjEzNTE0OjE6Ny4wMC4xOTEyMDVQOjM=:djE6WkI0WjZUX1BSRF9ERUJVR18wMTpKT0FPLkdPTUVTOkhTVEpLM3FUNEdZekhQbUVMSTVTQzMvQkhrSDV4ekU2d05MR1RmN2lnQms9|djI6MTY0OTE2MjUxODowOjE6MQ==.HMl440rgMsYHlTdE9cCl5rkUcRaZoVk1dwdwc+EfrkX8tISw31gSaOeiMpF/5RtlDtA+URUVR0f8YN3GSJejXqOVLYNEND4UZvzoS5n3LB4WBKuwsLNbl7NLer34OUsUG8RnNMRNeSBqwYjXEOjCTr+wuaYOl5Vz0qADJx/58NSvqWTugVoAFd87M2S/o0XzCctkS/T54li+6NTRmIodfWRHGb1RomfNCRHw0fy07jir8sIZOS7AHvZUvQ2cMw6tYZ7lGgk8qkmUtTisk/uphB3JGmXPW5oeUFkGM33taAI51MIYbzHTQk7k1G3RJdie6UGrcUNUldAKvl4wmwDxPA=="
+				"token": "djM6dGh1eDVjeG1sbGwxNmpwNWJqOTBjazBnZGxvMWI6MTp6YjR6NnQtcHJkLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjEzNTE0OjE6Ny4wMC4xOTEyMDVQOjM=:djE6WkI0WjZUX1BSRF9ERUJVR18wMTpKT0FPLkdPTUVTOlVSNFNqeWxaZ1djM0pjUEFaOThYcytVaVdQV1FFL3YzUGRBNkI5Ti9lNjA9|djI6MTY0OTE2NjU2MTowOjE6MQ==.G5mFhbacdPjRhJi69vV3yXe914EJX+OA2BBpWB+rvxbpVHX37NpDvC71hQv3EBYEnUTj9xW6EcsP8EkqgWqgHX7vGJjkqFNwkJJ2YR6v51doZv+TxkyXMhU8Ab+WHaVmafNG8LjE96W6J+48/vh86vI+vo7V6KvU5pBBQ8UQpO6hmpsnqv+d0XZ++ZFV3UnehcWyh0LSAFw/6wMzeBmCVL97t9cwyKga1AwENIJrexyuqn++iRq8CiBwWPoNrbjojJIa75e3J/D1Lt6LhZY+LEE1yCMHzlyK5/1ADHxoDHLUbbY2JP9z1f/zMF1SJwcBCJrXSgP3QFIy+Smkpi7E5A=="
 			}
 		],
 		[
@@ -142,5 +125,5 @@
 			}
 		]
 	],
-	"lastConnectedServer": "thux5cxmlll16jp5bj90ck0gdlo1b"
+	"lastConnectedServer": ""
 }
