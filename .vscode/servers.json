@@ -6,7 +6,24 @@
 	"permissions": {
 		"authorizationtoken": ""
 	},
-	"connectedServer": {},
+	"connectedServer": {
+		"id": "56xkjcpesel2hrvxt3b1wzozdjzb9",
+		"type": "totvs_server_protheus",
+		"name": "ZB4Z6T_HMLG_04",
+		"port": 24114,
+		"address": "zb4z6t-HOM-protheus.totvscloud.com.br",
+		"buildVersion": "7.00.210324P",
+		"secure": true,
+		"includes": [
+			"C:\\totvs\\projetos\\IncludesP11"
+		],
+		"environments": [
+			"ZB4Z6T_HOM_04"
+		],
+		"username": "JOAO.GOMES",
+		"environment": "ZB4Z6T_HOM_04",
+		"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOkg2OGhBWWJOR2dzajUzNEthRkptK29vNzI2TEZWTVI4ZTdUa1d2YnJiYms9|djI6MTY1MTE2MDQ3OTowOjE6MQ==.f/f/pTAnhJVx2yFUiASO48xnf1N0IzDtL57SB2B41/V5TeIFif5euARIfCmclFYesKQstkFRuc9zJAgk2RFcnZRhZeGuirI7/MAQiKgYaC54BuO10VcpZa2EnU1fFBCyWSIt5cyXf9MDJfrnFpWoFWJZlx43F/9/jCDzfCl2m45FMtBkpRyhnOeZC1A+M8zqNMH2MbyAaN+evN3XSmDeA5Rg7mOIMNqAXO2Wa54Ubz1vUynY4eDEVkr2zYzUnQjH2FRsOYFETTWe/BIGLkd2cCX/+SMa488yk6lMZNK35oRkz7FrQP0llSuKZhsSK8JAniOC8uT78dK6I73aaVuaYw=="
+	},
 	"configurations": [
 		{
 			"id": "sxrimhrk1dkx7tlq0mo2mgm7npn3r",
@@ -25,24 +42,6 @@
 			"username": "JOAO.GOMES",
 			"environment": "ZB4Z6T_DES_04",
 			"token": "djM6c3hyaW1ocmsxZGt4N3RscTBtbzJtZ203bnBuM3I6MTp6YjR6NnQtZGVzLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjQ1MTE0OjE6Ny4wMC4xOTEyMDVQOjM=:djE6WkI0WjZUX0RFU18wNDpKT0FPLkdPTUVTOmRCM2E3NHpEaW1pdy91N3F5cWpHSng1aTViZEF5eG9Va3pmOWUwS3Jxa1k9|djI6MTYzOTU5MDM1NTowOjE6MQ==.0XtNAg8N69ioyoeapfafwUPrSmJGqi+Ijnpnvam5KB8wSggBFklAlf0T1WNymAKGDDK0sfuE4gaHPtHj5yw9+vt7zRG8tlztOP5wJ/NzZhBftSB+hfbg1jv5LnhEqVu5rD8vZToVnPee2JlVsCogXw//snmeHTILkZ9MKN8jMcMnq7/lO2jdhHg9xJeUU2bWmCRlQ1N2dqYAPrYW6txY8H69b5eCEvyEsTkad0qi21GH9gMNQUJQU3kLz/M65Lw1MMiqf+M6SDYNqxVl6P2Ow1hetP+jgH5gyFwEKGtzHO6kJKq3GRf4dbKHlIJRdFm0tDsPHhPrDEkcAxXZnG867Q=="
-		},
-		{
-			"id": "hbew1jzu4vlkxqdpgnrbur6ukproe",
-			"type": "totvs_server_protheus",
-			"name": "ZB4Z6T_HOM_04",
-			"port": 24114,
-			"address": "zb4z6t-HOM-protheus.totvscloud.com.br",
-			"buildVersion": "7.00.191205P",
-			"secure": true,
-			"includes": [
-				"C:\\totvs\\projetos\\IncludesP11"
-			],
-			"environments": [
-				"ZB4Z6T_HOM_04"
-			],
-			"username": "JOAO.GOMES",
-			"environment": "ZB4Z6T_HOM_04",
-			"token": "djM6aGJldzFqenU0dmxreHFkcGducmJ1cjZ1a3Byb2U6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4xOTEyMDVQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOkhMbUZ3VWVCbm9PS2U4NmZLVWJLWEUwc3hMRGhnMGkvcG5xME1VdkNDS289|djI6MTY0OTE2MDAwNzowOjE6MQ==.T+kEPz9FlA7w6/VHjWPsUyo3rqCNMV+f9SD/3AF3cPF92YUS7wWXXNbtlZaP+2VBQYsnmvLE68zSuNr4mhxRIeSgR9miXZRhZ3JGZE1DdOhI1GA1chmE5cGtzXWfdRBpEaDwjhgwJ/fkcLTojDucxthzz94ded6evPYynKBmrPNp11KsSz6fxRLH6J3Hakt4fdKdhzeFo4v9GKpLDchXfu4zSxhHappp3UYs2Da7DpkbkvQ6p3+AfRrmGphZvndGBq2RtC0Rour+aC23q4AgkNlbxeUhjlc+Y7s8dQYXZpaGkvKbKiegd01oTNQqdr/+QgXg3uOJ+GYFiMVJoigCdw=="
 		},
 		{
 			"id": "thux5cxmlll16jp5bj90ck0gdlo1b",
@@ -79,6 +78,24 @@
 			"username": "JOAO.GOMES",
 			"environment": "ZB4Z6T_PRD_DEBUG_05",
 			"token": "djM6N3doOTZkOHBwZGwxZGp0aHMwaDVta3EzMTJxdzoxOnpiNHo2dC1wcmQtcHJvdGhldXMudG90dnNjbG91ZC5jb20uYnI6MTM1NzA6MTo3LjAwLjE5MTIwNVA6Mw==:djE6WkI0WjZUX1BSRF9ERUJVR18wNTpKT0FPLkdPTUVTOk9uRTlOMlZLZUdJNy8weG5MaHlUMDZLN25ZSit5cjVlK3E1Z3FGMjhNUDQ9|djI6MTY0ODgxNTUyNzowOjE6MQ==.s+It6zQqOUBtWcJ86lBhUx0m1RfcbfySl40Yp35M7ia+TAo9f2ZyIENOXafBW4JBQuLqo4YJGqr5jibOTFUUNVexLCxc4Qv+o5DAghFFqRrkheCaTYrSs0761DxpNgG3Vuq/s6bKkw684ihv/+N0+Hn7dTgYt9lF4mK/eh/dkFgIYQXBpuch8E2pZK7ppJqWOkHxA6Y1Pgs59bz/HIMfSFiyq5cFoZvruLZepgteuAvgSWILTmBFxDnPxblrPWhGVK+tXYvt+Yb4VfHuSmMdUTvSBiis60jrgbbGCxsDOCqRHfo+KEzeXGIgpoyzKLXkrexcJ4m33VLtgJgHj9e9lg=="
+		},
+		{
+			"id": "56xkjcpesel2hrvxt3b1wzozdjzb9",
+			"type": "totvs_server_protheus",
+			"name": "ZB4Z6T_HMLG_04",
+			"port": 24114,
+			"address": "zb4z6t-HOM-protheus.totvscloud.com.br",
+			"buildVersion": "7.00.210324P",
+			"secure": true,
+			"includes": [
+				"C:\\totvs\\projetos\\IncludesP11"
+			],
+			"environments": [
+				"ZB4Z6T_HOM_04"
+			],
+			"username": "JOAO.GOMES",
+			"environment": "ZB4Z6T_HOM_04",
+			"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOkg2OGhBWWJOR2dzajUzNEthRkptK29vNzI2TEZWTVI4ZTdUa1d2YnJiYms9|djI6MTY1MTE2MDQ3OTowOjE6MQ==.f/f/pTAnhJVx2yFUiASO48xnf1N0IzDtL57SB2B41/V5TeIFif5euARIfCmclFYesKQstkFRuc9zJAgk2RFcnZRhZeGuirI7/MAQiKgYaC54BuO10VcpZa2EnU1fFBCyWSIt5cyXf9MDJfrnFpWoFWJZlx43F/9/jCDzfCl2m45FMtBkpRyhnOeZC1A+M8zqNMH2MbyAaN+evN3XSmDeA5Rg7mOIMNqAXO2Wa54Ubz1vUynY4eDEVkr2zYzUnQjH2FRsOYFETTWe/BIGLkd2cCX/+SMa488yk6lMZNK35oRkz7FrQP0llSuKZhsSK8JAniOC8uT78dK6I73aaVuaYw=="
 		}
 	],
 	"savedTokens": [
@@ -123,7 +140,14 @@
 				"id": "7wh96d8ppdl1djths0h5mkq312qw",
 				"token": "djM6N3doOTZkOHBwZGwxZGp0aHMwaDVta3EzMTJxdzoxOnpiNHo2dC1wcmQtcHJvdGhldXMudG90dnNjbG91ZC5jb20uYnI6MTM1NzA6MTo3LjAwLjE5MTIwNVA6Mw==:djE6WkI0WjZUX1BSRF9ERUJVR18wNTpKT0FPLkdPTUVTOk9uRTlOMlZLZUdJNy8weG5MaHlUMDZLN25ZSit5cjVlK3E1Z3FGMjhNUDQ9|djI6MTY0ODgxNTUyNzowOjE6MQ==.s+It6zQqOUBtWcJ86lBhUx0m1RfcbfySl40Yp35M7ia+TAo9f2ZyIENOXafBW4JBQuLqo4YJGqr5jibOTFUUNVexLCxc4Qv+o5DAghFFqRrkheCaTYrSs0761DxpNgG3Vuq/s6bKkw684ihv/+N0+Hn7dTgYt9lF4mK/eh/dkFgIYQXBpuch8E2pZK7ppJqWOkHxA6Y1Pgs59bz/HIMfSFiyq5cFoZvruLZepgteuAvgSWILTmBFxDnPxblrPWhGVK+tXYvt+Yb4VfHuSmMdUTvSBiis60jrgbbGCxsDOCqRHfo+KEzeXGIgpoyzKLXkrexcJ4m33VLtgJgHj9e9lg=="
 			}
+		],
+		[
+			"56xkjcpesel2hrvxt3b1wzozdjzb9:ZB4Z6T_HOM_04",
+			{
+				"id": "56xkjcpesel2hrvxt3b1wzozdjzb9",
+				"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOkg2OGhBWWJOR2dzajUzNEthRkptK29vNzI2TEZWTVI4ZTdUa1d2YnJiYms9|djI6MTY1MTE2MDQ3OTowOjE6MQ==.f/f/pTAnhJVx2yFUiASO48xnf1N0IzDtL57SB2B41/V5TeIFif5euARIfCmclFYesKQstkFRuc9zJAgk2RFcnZRhZeGuirI7/MAQiKgYaC54BuO10VcpZa2EnU1fFBCyWSIt5cyXf9MDJfrnFpWoFWJZlx43F/9/jCDzfCl2m45FMtBkpRyhnOeZC1A+M8zqNMH2MbyAaN+evN3XSmDeA5Rg7mOIMNqAXO2Wa54Ubz1vUynY4eDEVkr2zYzUnQjH2FRsOYFETTWe/BIGLkd2cCX/+SMa488yk6lMZNK35oRkz7FrQP0llSuKZhsSK8JAniOC8uT78dK6I73aaVuaYw=="
+			}
 		]
 	],
-	"lastConnectedServer": ""
+	"lastConnectedServer": "56xkjcpesel2hrvxt3b1wzozdjzb9"
 }
