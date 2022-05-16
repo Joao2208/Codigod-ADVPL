@@ -23,21 +23,21 @@ User Function MM537(serviceDeskId,requestTypeId,summary,description,acustomfield
     Local nCustomFields
     Local lRet          := .F.
     Local cResp         :=''
-    Local xValue := Nil
+    Local xValue        := Nil
 
 	Private oResp       := nil
 
 	IF TYPE("cFilAnt") == 'U'
 		RpcSetEnv( '01','010101')
-	ENDIF
+	ENDIF   
 
     //Cria o cabeçalho da requisição
-    Aadd(aHeader, "Accept-Encoding: gzip, deflate, br")
+    Aadd(aHeader, "Accept: application/json")
     Aadd(aHeader, "Content-Type: application/json")
     Aadd(aHeader, "Cache-Control: no-cache")
     //https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/
     //BASE64 encode the string: protheus@madeiramadeira.com.br:HKRjF8qZsJUPXVsn67kR36CD
-	Aadd(aHeader, "Authorization: Basic cHJvdGhldXNAbWFkZWlyYW1hZGVpcmEuY29tLmJyOkhLUmpGOHFac0pVUFhWc242N2tSMzZDRA==")
+	Aadd(aHeader, "Authorization: Basic am9hby5nb21lc0BtYWRlaXJhbWFkZWlyYS5jb20uYnI6QWUxd0tYT3pzaEpWZ2YwdzhBNjFCQ0I4")
     cUrl:= GetNewPar("MM_URLJIRA","https://madeiramadeira.atlassian.net")
 
     cBodyOut:= '{'

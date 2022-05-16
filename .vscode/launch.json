@@ -7,7 +7,7 @@
 			"name": "TOTVS Language Debug",
 			"program": "${command:AskForProgramName}",
 			"cwb": "${workspaceFolder}",
-			"smartclientBin": "C:/Users/joao.gomes/Documents/Protheus/smartclient-dev/smartclient-dev/smartclient_ZB4Z6T_DES/smartclient.exe",
+			"smartclientBin": "C:/Users/joao.gomes/Documents/smartclient_ZB4Z6T_PRD/smartclient.exe",
 			"isMultiSession": true,
 			"enableTableSync": true
 		}
@@ -92,7 +92,11 @@
 		{
 			"label": "U_MM571",
 			"description": "<nil>"
+		},
+		{
+			"label": "SIGAMDI",
+			"description": "<nil>"
 		}
 	],
-	"lastProgramExecuted": "U_MM169"
+	"lastProgramExecuted": "SIGAMDI"
 }
