@@ -1,12 +1,35 @@
 {
 	"version": "0.2.1",
 	"includes": [
-		""
+		"C:\\Users\\JOAO.GOMES\\Documents\\GitHub\\protheus\\IncludesP11"
 	],
 	"permissions": {
 		"authorizationtoken": ""
 	},
-	"connectedServer": {},
+	"connectedServer": {
+		"id": "56xkjcpesel2hrvxt3b1wzozdjzb9",
+		"type": "totvs_server_protheus",
+		"name": "ZB4Z6T_HMLG_04",
+		"port": 24114,
+		"address": "zb4z6t-HOM-protheus.totvscloud.com.br",
+		"buildVersion": "7.00.210324P",
+		"secure": true,
+		"includes": [
+			"C:\\Users\\JOAO.GOMES\\Documents\\GitHub\\protheus\\IncludesP11"
+		],
+		"environments": [
+			"ZB4Z6T_HOM_04"
+		],
+		"username": "JOAO.GOMES",
+		"environment": "ZB4Z6T_HOM_04",
+		"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOndaTEZVNmtyMkgyQ3V2V1lOdVRWbkEyOG9TNS9Fb3NXQks4YjdVWVVtakE9|djI6MTY1Mjk4MTA3NjowOjE6MQ==.c94ystVSs944JYOq5SY/ONaATOXHA10ntKOPe7MyDvYH22O138eh0wd+eOKOzjajQjYPzunpw9w98Bue6EcRUgY4d6Ct1UmclTpim8UPWJ3DatbnIwseMANbiJpSwKFJLiv6bJxLG2iBlqPgNPzMWla4Hvulm4Ko+h740qdMbN9/v7T0WUqhdJtXGTQrJ42/Mk90ixopmx8pWxUviwq/XlIrajvJSlNcieAvcTF4XWq5N64ol/3h1/ibsZSKVCrS0sJcQ+qVmMo8YixMYHutNptf5Zg06dlq9eVcwFPYuG/2iaa+c2PK+XAkLmBh1kLRhivcVwPZ/O4y3IE1M6Oi0Q==",
+		"informations": {
+			"permissions": [],
+			"errorMessage": "",
+			"environmentDetectedType": "totvs_server_protheus",
+			"serverDetectedType": "totvs_server_protheus"
+		}
+	},
 	"configurations": [
 		{
 			"id": "sxrimhrk1dkx7tlq0mo2mgm7npn3r",
@@ -17,7 +40,7 @@
 			"buildVersion": "7.00.191205P",
 			"secure": true,
 			"includes": [
-				"C:\\totvs\\projetos\\IncludesP11"
+				"C:\\Users\\JOAO.GOMES\\Documents\\GitHub\\protheus\\IncludesP11"
 			],
 			"environments": [
 				"ZB4Z6T_DES_04"
@@ -35,7 +58,7 @@
 			"buildVersion": "7.00.191205P",
 			"secure": true,
 			"includes": [
-				"C:\\totvs\\projetos\\IncludesP11"
+				"C:\\Users\\JOAO.GOMES\\Documents\\GitHub\\protheus\\IncludesP11"
 			],
 			"environments": [
 				"ZB4Z6T_PRD_DEBUG_01"
@@ -53,7 +76,7 @@
 			"buildVersion": "7.00.191205P",
 			"secure": true,
 			"includes": [
-				"C:\\totvs\\projetos\\IncludesP11"
+				"C:\\Users\\JOAO.GOMES\\Documents\\GitHub\\protheus\\IncludesP11"
 			],
 			"environments": [
 				"ZB4Z6T_PRD_DEBUG_05"
@@ -71,14 +94,20 @@
 			"buildVersion": "7.00.210324P",
 			"secure": true,
 			"includes": [
-				"C:\\totvs\\projetos\\IncludesP11"
+				"C:\\Users\\JOAO.GOMES\\Documents\\GitHub\\protheus\\IncludesP11"
 			],
 			"environments": [
 				"ZB4Z6T_HOM_04"
 			],
 			"username": "JOAO.GOMES",
 			"environment": "ZB4Z6T_HOM_04",
-			"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOmIxYWQ4ZUdldk9ScVZ4OElYZno3S0luMnpXUTAwbkpUZm0rMmFybVZodVE9|djI6MTY1MjQ2MjUxMTowOjE6MQ==.QeExh9tYGgFE8LJPsjRO5dFk+fCU7nSwGx31hpvgJXGtKv9zDeOHF+kk1VlusU82ata2H8CAHkjwOsCvBxE8DOhEGSX/TxL0boh5gNBgm3aJoEFvonIPSQHUnnx14RHis8XkBZmgp4i6MStZrzCcdDhaT86xLT9FX/x112pJnKmp1VlynpZByRcEmODs0Ne6OzU6R0cKSAFM7JKzS+rQbC1y8dMmqSXt9U6OOLQyG0TEGB5OseYSVXIyHx2RF44b+Qvux9AHFsDgXa5bNRwlrhLsbxnkGEIx38Kp+JrV/JE8eXe9cOsIEqHGODXCbozXqcAbMsDLDI2m88uyvhbWzg=="
+			"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOndaTEZVNmtyMkgyQ3V2V1lOdVRWbkEyOG9TNS9Fb3NXQks4YjdVWVVtakE9|djI6MTY1Mjk4MTA3NjowOjE6MQ==.c94ystVSs944JYOq5SY/ONaATOXHA10ntKOPe7MyDvYH22O138eh0wd+eOKOzjajQjYPzunpw9w98Bue6EcRUgY4d6Ct1UmclTpim8UPWJ3DatbnIwseMANbiJpSwKFJLiv6bJxLG2iBlqPgNPzMWla4Hvulm4Ko+h740qdMbN9/v7T0WUqhdJtXGTQrJ42/Mk90ixopmx8pWxUviwq/XlIrajvJSlNcieAvcTF4XWq5N64ol/3h1/ibsZSKVCrS0sJcQ+qVmMo8YixMYHutNptf5Zg06dlq9eVcwFPYuG/2iaa+c2PK+XAkLmBh1kLRhivcVwPZ/O4y3IE1M6Oi0Q==",
+			"informations": {
+				"permissions": [],
+				"errorMessage": "",
+				"environmentDetectedType": "totvs_server_protheus",
+				"serverDetectedType": "totvs_server_protheus"
+			}
 		}
 	],
 	"savedTokens": [
@@ -128,7 +157,7 @@
 			"56xkjcpesel2hrvxt3b1wzozdjzb9:ZB4Z6T_HOM_04",
 			{
 				"id": "56xkjcpesel2hrvxt3b1wzozdjzb9",
-				"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOmIxYWQ4ZUdldk9ScVZ4OElYZno3S0luMnpXUTAwbkpUZm0rMmFybVZodVE9|djI6MTY1MjQ2MjUxMTowOjE6MQ==.QeExh9tYGgFE8LJPsjRO5dFk+fCU7nSwGx31hpvgJXGtKv9zDeOHF+kk1VlusU82ata2H8CAHkjwOsCvBxE8DOhEGSX/TxL0boh5gNBgm3aJoEFvonIPSQHUnnx14RHis8XkBZmgp4i6MStZrzCcdDhaT86xLT9FX/x112pJnKmp1VlynpZByRcEmODs0Ne6OzU6R0cKSAFM7JKzS+rQbC1y8dMmqSXt9U6OOLQyG0TEGB5OseYSVXIyHx2RF44b+Qvux9AHFsDgXa5bNRwlrhLsbxnkGEIx38Kp+JrV/JE8eXe9cOsIEqHGODXCbozXqcAbMsDLDI2m88uyvhbWzg=="
+				"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOndaTEZVNmtyMkgyQ3V2V1lOdVRWbkEyOG9TNS9Fb3NXQks4YjdVWVVtakE9|djI6MTY1Mjk4MTA3NjowOjE6MQ==.c94ystVSs944JYOq5SY/ONaATOXHA10ntKOPe7MyDvYH22O138eh0wd+eOKOzjajQjYPzunpw9w98Bue6EcRUgY4d6Ct1UmclTpim8UPWJ3DatbnIwseMANbiJpSwKFJLiv6bJxLG2iBlqPgNPzMWla4Hvulm4Ko+h740qdMbN9/v7T0WUqhdJtXGTQrJ42/Mk90ixopmx8pWxUviwq/XlIrajvJSlNcieAvcTF4XWq5N64ol/3h1/ibsZSKVCrS0sJcQ+qVmMo8YixMYHutNptf5Zg06dlq9eVcwFPYuG/2iaa+c2PK+XAkLmBh1kLRhivcVwPZ/O4y3IE1M6Oi0Q=="
 			}
 		]
 	],

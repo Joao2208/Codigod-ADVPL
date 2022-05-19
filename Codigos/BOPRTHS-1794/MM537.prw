@@ -1,3 +1,4 @@
+#INCLUDE "protheus.ch"
 #INCLUDE "TOPCONN.CH"
 #INCLUDE "TOTVS.CH"
 /*/{Protheus.doc} MM537
@@ -56,7 +57,11 @@ User Function MM537(serviceDeskId,requestTypeId,summary,description,acustomfield
             
             Do Case 
                 Case ValType(xValue) == "C"
-                    cBodyOut += '"' + xValue + '"'              
+                    if left(xValue, 1) == "{" //
+                        cBodyOut += '' + xValue + ''
+                    else
+                       cBodyOut += '"' + xValue + '"' 
+                    endif
                 Case ValType(xValue) == "J"
                     cBodyOut += xValue:ToJson()
                     FreeObj(xValue)

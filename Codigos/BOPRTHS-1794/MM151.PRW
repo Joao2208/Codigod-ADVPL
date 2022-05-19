@@ -14,22 +14,14 @@ Local description
 Local acustomfield := {}
 Local cDataDemissa
 Local cDataAdmissa
-Local cCC
-Local oCargo := JsonObject():new() 
+Local cFil := CFILANT
+Local oEmpresa := JsonObject():new() 
 
-cCC := FWUsrEmp(M->RA_MAT)
+oEmpresa["01"] := "MadeiraMadeira" 
+oEmpresa["02"] := "Bulkylog"
+oEmpresa["03"] := "Itrack"
+oEmpresa["04"] := "Iguana Fix"
 
-
-
-/*
-DbSelectArea("SQ3")
-DbSetOrder(1)
-While !(SQ3)->(EoF())
-	if SQ3->Q3_CARGO = M
-		cCC += SQ3->Q3_DESCSUM
-	endif
-end
-*/
 
 cDataDemissa:= DToC(M->RA_DEMISSA)
 cDataAdmissa:= DToC(M->RA_ADMISSA)
@@ -65,11 +57,12 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 		  
 		//Coleta de dados para o preenchimento do campo acustonfield
 		Aadd(acustomfield, {"customfield_10634", AllTrim(M->RA_NOME)})  //"Nome Completo Funcionario", Obrigatório
+		Aadd(acustomfield, {"customfield_11311", '{"value":"'+ oEmpresa[SubStr(AllTrim(cFil),1,2)]+'"}'})
 		Aadd(acustomfield, {"customfield_10183", AllTrim(M->RA_MAILINT)})  //"email@corporativo", Obrigatório
 		Aadd(acustomfield, {"customfield_10761", Val(AllTrim(M->RA_MAT))})  //1234, Matrícula
-		Aadd(acustomfield, {"customfield_10671", oCargo[AllTrim(M->RA_CARGO)]})  //"Cargo", Obrigatório
-		Aadd(acustomfield, {"customfield_10197", AllTrim(M->RA_CC)})  //"CC Descrição Centro de Custo", Obrigatório Centro de Custo
-		Aadd(acustomfield, {"customfield_10864", '{"value" : "' + oDir[AllTrim(M->RA_MMDIRET)] + '"}'})  //{ "value": "Diretoria" }, Obrigatório
+		Aadd(acustomfield, {"customfield_10671", AllTrim(GetCargo(M->RA_CARGO))})  //"Cargo", Obrigatório
+		Aadd(acustomfield, {"customfield_10197", AllTrim(GetCCusto(M->RA_CC))})  //"CC Descrição Centro de Custo", Obrigatório Centro de Custo
+		Aadd(acustomfield, {"customfield_11332", AllTrim(GetDiretoria(M->RA_MMDIRET))})  // "Diretoria", Obrigatório
 		Aadd(acustomfield, {"customfield_10854", AllTrim(M->RA_EMAIL)})  //"email@pessoal", Opcional
 		Aadd(acustomfield, {"customfield_10859", AllTrim(M->RA_MAILSUP)})  //"email@gestor", Opcional
 		Aadd(acustomfield, {"customfield_10863", SubStr(cDataDemissa, 7, 4) + "-" + SubStr(cDataDemissa, 4, 2) + "-" + SubStr(cDataDemissa, 1, 2)})  //"2021-25-11", Data Demissão - Obrigatório
@@ -77,12 +70,13 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 		if M->RA_CEP != "" 
 			Aadd(acustomfield, {"customfield_10635", AllTrim(M->RA_ENDEREC)+ " " +AllTrim(M->RA_LOGRNUM)})  //"Rua + numero", Campo de texto simples opcional
 			Aadd(acustomfield, {"customfield_10637", AllTrim(M->RA_COMPLEM)})  //"Complemento", Opcional
-			//Aadd(acustomfield, {"customfield_10633", '{ "value": "' +AllTrim(M->RA_ESTADO)+ '", "child": { "value" :"' + AllTrim(M->RA_MUNICIP) +'" }}'})  //{ "value": "Estado", "child": { "value" : "Cidade"} }Opcional
+			Aadd(acustomfield, {"customfield_11319", '{"value": "' + AllTrim(M->RA_ESTADO) + '"}'})
+			Aadd(acustomfield, {"customfield_11318", AllTrim(M->RA_MUNICIP)})  //{ "value": "Estado", "child": { "value" : "Cidade"} }Opcional
 			Aadd(acustomfield, {"customfield_10639", AllTrim(M->RA_CEP)})  //"CEP", Opcional
 			Aadd(acustomfield, {"customfield_10640", AllTrim(M->RA_TELEFON)})  //"Telefone" Opcional
 		endif
-		summary := "Chamado de Desligamento do colaborador " + AllTrim(M->RA_NOME) + "."
-		description := "O funcionario " + AllTrim(M->RA_NOME) + " foi demitido, EMAIL: " + AllTrim(RA_EMAIL) + " CARGO: " + oCargo[AllTrim(M->RA_CARGO)]
+		summary := "Chamado de Desligamento do colaborador " + AllTrim(M->RA_NOME) + ", CARGO: " + AllTrim(GetCargo(M->RA_CARGO)) + "."
+		description := "O funcionario " + AllTrim(M->RA_NOME) + " foi demitido, EMAIL: " + AllTrim(RA_EMAIL) + " CARGO: " + AllTrim(GetCargo(M->RA_CARGO)) + "."
 
 		lRet:=U_MM537(serviceDeskId,requestTypeId,summary,description,acustomfield)
 		
@@ -107,3 +101,61 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 EndIf
 
 Return _cRet
+
+/*/{Protheus.doc} GetCCusto
+	(long_description)
+	@type  Static Function
+	@author JOAO.GOMES
+	@since 19/05/2022
+	@version 1.0
+	@param cCodigo
+	@return cDesc
+/*/
+Static Function GetCCusto(cCodigo)
+	Local cDesc := ""
+	
+	DbSelectArea("CTT")
+	DbSetOrder(1)
+	If CTT->(DbSeek(xFilial("CTT") + cCodigo))
+		cDesc := CTT->CTT_DESC01
+	EndIf
+Return cDesc
+
+/*/{Protheus.doc} GetCargo
+	(long_description)
+	@type  Static Function
+	@author Joao.Gomes
+	@since 19/05/2022
+	@param cCargo
+	@return cDescCarg
+/*/
+Static Function GetCargo(cCargo)
+	Local cDescCarg := ""
+	
+	DbSelectArea("SQ3")
+	DbSetOrder(1)
+	If SQ3->(DbSeek(xFilial("SQ3") + cCargo))
+		cDescCarg := SQ3->Q3_DESCSUM
+	EndIf
+Return cDescCarg
+
+/*/{Protheus.doc} GetDiretoria
+	@type  Static Function
+	@author JOAO.GOMES
+	@since 19/05/2022
+	@version 1.0
+	@param cDiretoria
+	@return cDir
+/*/
+Static Function GetDiretoria(cDiretoria)
+	Local cDir := ""
+	Local aRetSx5
+	
+	aRetSx5 := FwGetSx5("ZL",cDiretoria)
+	If Len(aRetSx5) > 0
+		cDir := aRetSx5[1][4]
+	EndIf
+Return cDir
+
+
+
