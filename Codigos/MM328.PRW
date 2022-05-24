@@ -483,10 +483,10 @@ Local aCabec := {}
 Local aItens := {}
 Local aLinha := {}
 Local aItensBrid := {}
-Local aSM0
 Local acustonfield1 := {}
 Local acustonfield2 := {}
 Local acustonfield3 := {}
+Local aSM0
 Local cJErro := Nil
 Local cFilBkp := cFilAnt
 Local cFilAux := cFilBkp
@@ -905,14 +905,15 @@ Private lMSErroAuto 	:= .F.
                                 jJson := JsonObject():New()
                                 jJson["id"] := "21772"
                                 jJson["child"] := jJson2
-                                Aadd(acustonfield3, {"customfield_11138", '{"value": "Protheus"}'})
-                                Aadd(acustonfield3, {"customfield_11143", '{"value": "Saldo"}'})
-                                Aadd(acustonfield3, {"customfield_11186", '{"value": "Saldo negativo"}'})
-                                If U_MM537( "52",;
+                                Aadd(acustonfield1, {"customfield_11138", '{"value": "Protheus"}'})
+                                Aadd(acustonfield1, {"customfield_11143", '{"value": "Saldo"}'})
+                                Aadd(acustonfield1, {"customfield_11186", '{"value": "Saldo negativo"}'})
+                                If U_MM537("52",;
                                             "881",;
                                             "[PEDIDO SALDAO GUIDE SHOP]",;
-                                            "Guide " + jCabec["channel"] + " Filial " + cFilAnt + " CNPJ " + aSM0[nPosCot, 18] + " Pedido " + AllTrim(jCabec["pedido"]) + " sku " + AllTrim(oItem:GetItem("C6_PRODUTO")),;
-                                            acustonfield3)
+                                            "Guide " + jCabec["channel"] + " Filial " + cFilAnt + " CNPJ " + aSM0[nPosCot, 18] + ;
+                                            " Pedido " + AllTrim(jCabec["pedido"]) + " sku " + AllTrim(oItem:GetItem("C6_PRODUTO")),;
+                                            acustonfield1)
                                     MemoWrite(cArqLog, "SD criado com sucesso!")
                                 End
                                 FreeObj(jJson2)
@@ -933,9 +934,9 @@ Private lMSErroAuto 	:= .F.
                     If !File(cArqLog)
                         jJson := JsonObject():New()
                         jJson["id"] := "11094"
-                        Aadd(acustonfield1, {"customfield_10107",'{"value":"Outros"}'})
-                        Aadd(acustonfield1, {"custonfield_11267",'{"value":"Processo interno"}'}) 
-                        If U_MM537("52", "881", "Erro TES Inteligente Importacao de Pedidos", cMensagem + " PV " + cPedido + " SKU " + AllTrim(oItem:GetItem("C6_PRODUTO")), acustonfield1)
+                        Aadd(acustonfield2, {"customfield_10107",'{"value":"Outros"}'})
+                        Aadd(acustonfield2, {"custonfield_11267",'{"value":"Processo interno"}'})
+                        If U_MM537("52", "881", "Erro TES Inteligente Importacao de Pedidos", cMensagem + " PV " + cPedido + " SKU " + AllTrim(oItem:GetItem("C6_PRODUTO")), acustonfield2)
                             MemoWrite(cArqLog, "SD criado com sucesso!")
                         End
                         FreeObj(jJson)
@@ -1002,10 +1003,10 @@ Private lMSErroAuto 	:= .F.
                                 If (Empty((_cAlias2)->erro) .Or. (_cAlias2)->erro <> '2')
                                     cMensagem += "A Rotina MM328-Importacao de pedidos, identificou o pedido " + cPedido + " sem detalhes de pagamento enviados pelo Black Panter. Pedido pai: " + cPedidoPai +" '" //+ cRespPGTO +"'" payload do bp.
                                     //JIRA (serviceDeskId,requestTypeId,summary                  ,description,acustomfield)
-                                    Aadd(acustonfield2, {"customfield_11090", Val(cPedidoPai)})
-                                    Aadd(acustonfield2, {"customfield_11196", '{"value":"Pedidos"}'})
-                                    Aadd(acustonfield2, {"customfield_11200", EncodeUtf8('{"value":"Importação de pedidos"}')})
-                                    U_MM537("52"          ,"881"        ,"Pagamento nao retornado",cMensagem  ,acustonfield2)
+                                    Aadd(acustonfield3, {"customfield_11090", Val(cPedidoPai)})
+                                    Aadd(acustonfield3, {"customfield_11196", '{"value":"Pedidos"}'})
+                                    Aadd(acustonfield3, {"customfield_11200", EncodeUtf8('{"value":"Importação de pedidos"}')})
+                                    U_MM537("52", "881", "Pagamento nao retornado",cMensagem  ,acustonfield3)
                                 End
 
                                 lErr := .T.
