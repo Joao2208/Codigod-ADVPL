@@ -96,7 +96,25 @@
 		{
 			"label": "SIGAMDI",
 			"description": "<nil>"
+		},
+		{
+			"label": "U_MMtesteEnv"
+		},
+		{
+			"label": "U_MM111"
+		},
+		{
+			"label": "U_MM999"
+		},
+		{
+			"label": "U_MM888"
+		},
+		{
+			"label": "U_MM666"
+		},
+		{
+			"label": "U_MM992"
 		}
 	],
-	"lastProgramExecuted": "SIGAMDI"
+	"lastProgramExecuted": "U_MM992"
 }

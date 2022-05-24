@@ -18,9 +18,10 @@ Local cFil := CFILANT
 Local oEmpresa := JsonObject():new() 
 
 oEmpresa["01"] := "MadeiraMadeira" 
-oEmpresa["02"] := "Bulkylog"
-oEmpresa["03"] := "Itrack"
-oEmpresa["04"] := "Iguana Fix"
+oEmpresa["02"] := "BulkyLog"
+oEmpresa["03"] := "iTrack"
+oEmpresa["04"] := "IguanaFix"
+oEmpresa[""] := "Terceiros"
 
 
 cDataDemissa:= DToC(M->RA_DEMISSA)
@@ -103,7 +104,7 @@ EndIf
 Return _cRet
 
 /*/{Protheus.doc} GetCCusto
-	(long_description)
+	(Relaciona a cigla com o centro de custo)
 	@type  Static Function
 	@author JOAO.GOMES
 	@since 19/05/2022
@@ -150,12 +151,18 @@ Return cDescCarg
 Static Function GetDiretoria(cDiretoria)
 	Local cDir := ""
 	Local aRetSx5
+	Local natual
 	
-	aRetSx5 := FwGetSx5("ZL",cDiretoria)
-	If Len(aRetSx5) > 0
-		cDir := aRetSx5[1][4]
-	EndIf
+	RPCSetType(3)
+    lEnv := RPCSetEnv('01', '010101')
+
+	aRetSx5 := FwGetSx5("ZL")
+
+	For nAtual := 1 To Len(aRetSx5)
+        If AllTrim(aRetSx5[nAtual][3]) = AllTrim(cDiretoria)
+			cDir := aRetSx5[nAtual][4]
+		EndIf
+    NEXT
+
+	RpcClearEnv()
 Return cDir
-
-
-

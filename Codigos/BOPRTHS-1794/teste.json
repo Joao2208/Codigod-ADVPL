@@ -1,0 +1,15 @@
+{
+    "serviceDeskId": 6,
+    "requestTypeId": 880,
+    "requestFieldValues": {
+        "summary": "teste testado",
+        "description": " teste",
+        "customfield_11196": {
+            "value": "Pedidos"
+        },
+        "customfield_11200": {
+            "value": "Importação de pedidos"
+        },
+        "customfield_11090": 555555
+    }
+}

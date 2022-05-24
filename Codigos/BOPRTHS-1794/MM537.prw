@@ -57,7 +57,7 @@ User Function MM537(serviceDeskId,requestTypeId,summary,description,acustomfield
             
             Do Case 
                 Case ValType(xValue) == "C"
-                    if left(xValue, 1) == "{" //
+                    if left(xValue, 1) == "{" //valida se é aberto outro Json no body para que o seu conteudo não fique como uma string ex: "customfield_11196":{"value":"Pedidos"} ao invez de "customfield_11196":'{"value":"Pedidos"}'
                         cBodyOut += '' + xValue + ''
                     else
                        cBodyOut += '"' + xValue + '"' 
