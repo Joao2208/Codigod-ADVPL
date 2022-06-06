@@ -35,6 +35,10 @@ User Function MM328()
                 CorrigeCot() //corrige pedidos represados com erro de cotação
             End
 
+            If GetMV("MM_AMRESGS", .F., .T.) //amarra reservas manuais aos pedidos showroom GS
+                AmaResShow()
+            End
+
             MM328Job() //Job para execucao do processo
 			U_MM253Job()//IMPORTACAO DE PEDIDOS DE VENDA MARKETPLACE
 			PutMv(aMyParFun[1], 0)
@@ -111,7 +115,8 @@ Local lDebug := .F.
            cli.uf cli_uf, cli.cidade cli_cid, cli.bairro cli_bai, cli.cep cli_cep, cli.pais cli_pais, 
            cli.endeentrega cli_endent, cli.numeroentrega cli_nument, cli.complementoentrega cli_coment, 
            cli.ufentrega cli_ufent, cli.cidadeentrega cli_cident, cli.bairroentrega cli_baient, cli.cepentrega cli_cepent, 
-	       cli.ibge cli_ibge           
+	       cli.ibge cli_ibge,
+           cab.desconto_incondicional
 	  from cabecalho_pedidos_venda cab (nolock) 
 	  join clientes cli (nolock) on cab.cliente = cli.codigo AND cli.protheus = 1 
       LEFT JOIN %Table:SA3% SA3 (NOLOCK) ON A3_FILIAL = %xFilial:SA3% AND A3_COD = rtrim(cab.lojamktplace) AND SA3.D_E_L_E_T_ != '*'
@@ -126,7 +131,7 @@ Local lDebug := .F.
                   or replace(cab.cep,'-','') = '00099123')     ) ) 
 	    and cab.pedido not in (select pedido from items_do_pedido_de_venda it (nolock) where it.protheus = '0' and it.tipo_frete = 3 )
        //and cab.juros > 0
-       //and cab.pedido in ('Z25224951')
+      // and cab.pedido in ('Z30303053') //TESTE CASHBACK
        //and left(cab.pedido, 2) = 'Z3'
        //and cab.erro = '0' 
   order by cab.data_compra 
@@ -248,6 +253,7 @@ Local lDebug := .F.
             jCabec["A3_COMIS"] := (cAliasCab)->A3_COMIS
             jCabec["juros"] := Round((cAliasCab)->juros,2)
             jCabec["id_seller"] := AllTrim((cAliasCab)->id_seller)
+            jCabec["desconto_incondicional"] := Round((cAliasCab)->desconto_incondicional,2)
             
             cJsonCab := jCabec:ToJson()
 
@@ -700,6 +706,8 @@ Private lMSErroAuto 	:= .F.
             AADD(aCabec,{"C5_PEDPAI"	,jCabec["pedidopai"] 							,Nil})
             AADD(aCabec,{"C5_MMPDORI"	,jCabec["pdmkacomp"]							,Nil})
             AADD(aCabec,{"C5_MMRH"		,jCabec["redehome"]							,Nil})
+
+            AADD(aCabec,{"C5_DESCONT "		,jCabec["desconto_incondicional"]							,Nil})
             
             If jCabec["naogeraoc"] == 'S'
                 AADD(aCabec,{"C5_MMCANCE",'S',Nil})
@@ -725,7 +733,9 @@ Private lMSErroAuto 	:= .F.
                 If oItem:GetItem("PROCESSO") $ "01/02" //EA FF
                     cFilAux := cFilAnt
                     cFilAnt := oItem:GetItem("FILIAL")
-                    nCusto := U_BuscaCusto( jItem["produto"], jCabec["estcli"], jItem["B1_PROC"], If(cFilAnt=='010107',.T.,.F.), If(cFilAnt=='010107',.T.,.F.), cPedido)
+                    If jCabec["mostruariogs"] != "S"
+                        nCusto := U_BuscaCusto( jItem["produto"], jCabec["estcli"], jItem["B1_PROC"], If(cFilAnt=='010107',.T.,.F.), If(cFilAnt=='010107',.T.,.F.), cPedido)
+                    End
                     cFilant := cFilAux
                     If (Empty(nCusto) .Or. nCusto == 0)
                         nCusto := jItem["custo"]
@@ -736,7 +746,7 @@ Private lMSErroAuto 	:= .F.
                     nCusto := jItem["custo"]
                     
                     //se o custo for 0 então forço uma busca lá, porem pode estar errado devido a forma com a filial é selecioanda paera oc
-                    If (Empty(nCusto) .Or. nCusto == 0)
+                    If (Empty(nCusto) .Or. nCusto == 0) .And. jCabec["mostruariogs"] != "S"
                         nCusto := U_BuscaCusto( jItem["produto"], jCabec["estcli"],  jItem["B1_PROC"], If(cFilAnt=='010107',.T.,.F.), If(cFilAnt=='010107',.T.,.F.), cPedido)    
                     End                
                 End
@@ -752,7 +762,7 @@ Private lMSErroAuto 	:= .F.
                 AADD(aLinha,{"C6_ENTFORN"	, oItem:GetItem("PRAZOFORNECEDOR") 	    , Nil})
                 AADD(aLinha,{"C6_QTDVEN"	, jItem["quantidade"]					, Nil})
                 
-                If nCusto == 0
+                If nCusto == 0 .And. jCabec["mostruariogs"] != "S"
                     AADD(aLinha,{"C6_PRCVEN",0,Nil})//zerar valor para nÃ£o integrar o pedido
                     U_MM020(	cMVRelServ,;
                                 cMVRelaCnt,;
@@ -836,16 +846,17 @@ Private lMSErroAuto 	:= .F.
                 jCabec["margem"] := "S"
                 //cMargem	:= "S"
                 //VERIFICA SE O CUSTO E PELO MENOS 5%
-                If (jItem["custo"] * 1.05 * jItem["xconval"]) > jItem["preco_unitario"] * jItem["xconval"] .And. jCabec["liberado"] != "S" .And. jCabec["lojamktplace"] != "RB"
-                    jCabec["margem"] := "N"
-                    cMensagem += " -> Item " + jItem["C6_ITEM"] + " com custo (" + cValToChar(jItem["custo"]) + ") menor ou igual a 1.05 do preco_unitario (" +  cValToChar(jItem["preco_unitario"]) + ") | "
+                If jCabec["mostruariogs"] != "S"
+                    If (jItem["custo"] * 1.05 * jItem["xconval"]) > jItem["preco_unitario"] * jItem["xconval"] .And. jCabec["liberado"] != "S" .And. jCabec["lojamktplace"] != "RB"
+                        jCabec["margem"] := "N"
+                        cMensagem += " -> Item " + jItem["C6_ITEM"] + " com custo (" + cValToChar(jItem["custo"]) + ") menor ou igual a 1.05 do preco_unitario (" +  cValToChar(jItem["preco_unitario"]) + ") | "
+                    End
+                    //VERIFICA SE EXISTE ALGUM VALOR NEGATIVO
+                    If jItem["preco_unitario"] <= 0
+                        jCabec["margem"] := "B"
+                        cMensagem += " -> Item " + jItem["C6_ITEM"] + " com preco_unitario negativo (" +  cValToChar(jItem["preco_unitario"]) + ") | "
+                    End
                 End
-                //VERIFICA SE EXISTE ALGUM VALOR NEGATIVO
-                If jItem["preco_unitario"] <= 0
-                    jCabec["margem"] := "B"
-                    cMensagem += " -> Item " + jItem["C6_ITEM"] + " com preco_unitario negativo (" +  cValToChar(jItem["preco_unitario"]) + ") | "
-                End
-
             Next nI
 
             DbSelectArea("SC5")
@@ -906,7 +917,7 @@ Private lMSErroAuto 	:= .F.
                                 jJson["id"] := "21772"
                                 jJson["child"] := jJson2
                                 Aadd(acustonfield1, {"customfield_11138", '{"value": "Protheus"}'})
-                                Aadd(acustonfield1, {"customfield_11143", '{"value": "Saldo"}'})
+                                Aadd(acustonfield1, {"customfield_11143", '{"value": "Guide"}'})
                                 Aadd(acustonfield1, {"customfield_11186", '{"value": "Saldo negativo"}'})
                                 If U_MM537("52",;
                                             "881",;
@@ -1006,7 +1017,7 @@ Private lMSErroAuto 	:= .F.
                                     Aadd(acustonfield3, {"customfield_11090", Val(cPedidoPai)})
                                     Aadd(acustonfield3, {"customfield_11196", '{"value":"Pedidos"}'})
                                     Aadd(acustonfield3, {"customfield_11200", EncodeUtf8('{"value":"Importação de pedidos"}')})
-                                    U_MM537("52", "881", "Pagamento nao retornado",cMensagem  ,acustonfield3)
+                                    U_MM537("52"          ,"881"        ,"Pagamento nao retornado",cMensagem  ,acustonfield3)
                                 End
 
                                 lErr := .T.
@@ -2046,6 +2057,7 @@ Local cError
             ZMB->ZMB_CEPORI := jQuotation["cep_origem"]
             ZMB->ZMB_JSONRE := jQuotation:ToJson()
         ZMB->(MSUnlock())
+        ZMB->(DBCommit())
 
         TCSqlExec("update cabecalho_pedidos_venda set erro = '', mensagem = '' where pedido = '" + AllTrim((_cAlias1)->pedido) + "'")
 
@@ -2057,7 +2069,7 @@ Local cError
 
     (_cAlias1)->(DBCloseArea())    
 
-    DBCommitAll()
+    //DBCommitAll()
 Return Nil
 /*/{Protheus.doc} nomeStaticFunction
     (long_description)
@@ -2073,14 +2085,15 @@ Return Nil
 /*/
 User Function ExcluiLib(cPedido, cItem, cProduto, lExcluirC9)
 Local cFilBkp := cFilAnt
-Local nTamNum := TamSX3("C5_NUM")[1]
-Local nTamProd := TamSX3("C6_PRODUTO")[1]
+Local nTamNum := GetSx3Cache("C5_NUM", "X3_TAMANHO") //TamSX3("C5_NUM")[1]
+Local nTamProd := GetSx3Cache("C6_PRODUTO", "X3_TAMANHO") //TamSX3("C6_PRODUTO")[1]
+Local cTamItem := GetSx3Cache("C6_ITEM", "X3_TAMANHO")
 Local lSC6 := .F.
 
 Default lExcluirC9 := .F.
 
     cPedido := PadR(cPedido, nTamNum)
-    cItem := Right("00" + cItem,2)
+    cItem := Right("00" + AllTrim(cItem), cTamItem)
     cProduto := PadR(cProduto, nTamProd)
 
     DbSelectArea("SC5")
@@ -2112,7 +2125,7 @@ Default lExcluirC9 := .F.
 
         SELECT SC9.R_E_C_N_O_ RECNOSC9
           FROM %Table:SC9% SC9 (NOLOCK) 
-         WHERE C9_FILIAL BETWEEN '' AND 'Z'
+         WHERE C9_FILIAL >= ''
            AND C9_PEDIDO = %Exp:SC6->C6_NUM%
            AND C9_ITEM = %Exp:SC6->C6_ITEM%
            AND C9_PRODUTO = %Exp:SC6->C6_PRODUTO%
@@ -2132,6 +2145,7 @@ Default lExcluirC9 := .F.
                         SC9->C9_QTDRESE := 0
                         SC9->C9_RESERVA := ""
                     SC9->(MsUnlock())
+                    SC9->(DBCommit())
                 End
             End
             (_cAlias1)->(DBSkip())
@@ -2142,6 +2156,7 @@ Default lExcluirC9 := .F.
                 SC6->C6_QTDEMP := 0//quantidade liberada mas não faturada
                 SC6->C6_QTDEMP2 := 0
             SC6->(MsUnlock())
+            SC6->(DBCommit())
         End
     End
 
@@ -2236,23 +2251,24 @@ Local cFilBkp := cFilAnt
     BeginSql Alias cAlias
     %NoParser%
 
-    //--RESERVAS DE PEDIDOS EXCLUIDOS
+    //RESERVAS DE PEDIDOS EXCLUIDOS
     SELECT C0_FILIAL, C0_NUM, C0_TIPO, C0_DOCRES, C0_PRODUTO, C0_LOCAL, C0_SOLICIT, C0_QUANT, C0_QTDPED
       FROM SC0010 SC0 (NOLOCK)
-      JOIN SC6010 SC6 (NOLOCK) ON C6_FILIAL = '' AND C6_NUM = C0_DOCRES AND C6_PRODUTO = C0_PRODUTO AND SC6.D_E_L_E_T_ = '*'
-                            AND NOT EXISTS (SELECT 1 
-                                            FROM SC6010 B (NOLOCK) 
-                                            WHERE B.C6_FILIAL = SC6.C6_FILIAL 
-                                                AND B.C6_NUM = SC6.C6_NUM
-                                                AND B.C6_PRODUTO = SC6.C6_PRODUTO
-                                                AND B.D_E_L_E_T_ != '*')
-     WHERE C0_FILIAL BETWEEN '' AND 'Z'
+     WHERE C0_FILIAL >= ''
        AND (C0_QUANT > 0 OR C0_QTDPED > 0)
+	   AND C0_SOLICIT NOT IN ('TEMPORARIO')
+	   AND C0_TIPO IN ('PD','LB')
        AND SC0.D_E_L_E_T_ != '*'
+        AND NOT EXISTS (SELECT 1 
+                        FROM SC6010 B (NOLOCK) 
+                        WHERE B.C6_FILIAL = ''
+                            AND B.C6_NUM = C0_DOCRES
+                            AND B.C6_PRODUTO = C0_PRODUTO
+                            AND B.D_E_L_E_T_ != '*')
 
     UNION
 
-    //--RESERVAS DE PEDIDOS CANCELADOS
+    //RESERVAS DE PEDIDOS CANCELADOS
     SELECT C0_FILIAL, C0_NUM, C0_TIPO, C0_DOCRES, C0_PRODUTO, C0_LOCAL, C0_SOLICIT, C0_QUANT, C0_QTDPED
       FROM SC0010 SC0 (NOLOCK)
       JOIN SC5010 SC5 (NOLOCK) ON C5_FILIAL = '' AND C5_NUM = C0_DOCRES AND SC5.D_E_L_E_T_ != '*'
@@ -2261,43 +2277,43 @@ Local cFilBkp := cFilAnt
       left join items_do_pedido_de_venda ipv (nolock) on ipv.pedido = C6_NUM 
                                                 and (ipv.item = (CASE WHEN C6_MMITBRI != '' THEN C6_MMITBRI ELSE CONVERT(VARCHAR(2), CONVERT(INT, C6_ITEM)) END)
                                                 or ipv.cod_produto = C6_PRODUTO)
-      LEFT JOIN SD2010 SD2 (NOLOCK) ON D2_FILIAL BETWEEN '' AND 'Z' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND D2_TIPO = 'N' AND SD2.D_E_L_E_T_ != '*'
+      LEFT JOIN SD2010 SD2 (NOLOCK) ON D2_FILIAL >= '' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND D2_TIPO = 'N' AND SD2.D_E_L_E_T_ != '*'
       LEFT JOIN SF4010 SF4 (NOLOCK) ON F4_FILIAL = '' AND F4_CODIGO = D2_TES AND SF4.D_E_L_E_T_ != '*'
-     WHERE C0_FILIAL BETWEEN '' AND 'Z'
+     WHERE C0_FILIAL >= ''
        AND (C0_QUANT > 0 OR C0_QTDPED > 0)
        AND SC0.D_E_L_E_T_ != '*'
        AND (C5_MMCANCE = 'S' OR C6_MMCANC = 'S' or coalesce(cpv.cancelado, '') = 'S' or coalesce(ipv.cancelado, '') = 'S')
 
     UNION
 
-    //--RESERVAS DE PEDIDOS FATURADOS
+    //RESERVAS DE PEDIDOS FATURADOS
     SELECT C0_FILIAL, C0_NUM, C0_TIPO, C0_DOCRES, C0_PRODUTO, C0_LOCAL, C0_SOLICIT, C0_QUANT, C0_QTDPED
       FROM SC0010 SC0 (NOLOCK)
       JOIN SC5010 SC5 (NOLOCK) ON C5_FILIAL = '' AND C5_NUM = C0_DOCRES AND SC5.D_E_L_E_T_ != '*'
       JOIN SC6010 SC6 (NOLOCK) ON C6_FILIAL = C5_FILIAL AND C6_NUM = C5_NUM AND C6_PRODUTO = C0_PRODUTO AND SC6.D_E_L_E_T_ != '*'
-      JOIN SD2010 SD2 (NOLOCK) ON D2_FILIAL BETWEEN '' AND 'Z' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND SD2.D_E_L_E_T_ != '*' AND D2_TIPO = 'N'
+      JOIN SD2010 SD2 (NOLOCK) ON D2_FILIAL >= '' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND SD2.D_E_L_E_T_ != '*' 
       JOIN SF4010 SF4 (NOLOCK) ON F4_FILIAL = '' AND F4_CODIGO = D2_TES AND SF4.D_E_L_E_T_ != '*'
-     WHERE C0_FILIAL BETWEEN '' AND 'Z'
-       AND C0_LOCAL IN ('01','11')
+     WHERE C0_FILIAL >= ''
        AND (C0_QUANT > 0 OR C0_QTDPED > 0)
        AND C0_TIPO NOT IN ('LB')
        AND SC0.D_E_L_E_T_ != '*'
 
     UNION
 
-    //--RESERVAS EM PEDIDOS FATURADOS e com SC9 LIBERADOS
+    //RESERVAS EM PEDIDOS FATURADOS e com SC9 LIBERADOS
     SELECT C0_FILIAL, C0_NUM, C0_TIPO, C0_DOCRES, C0_PRODUTO, C0_LOCAL, C0_SOLICIT, C0_QUANT, C0_QTDPED
       FROM SC0010 SC0 (NOLOCK)
       JOIN SC5010 SC5 (NOLOCK) ON C5_FILIAL = '' AND C5_NUM = C0_DOCRES AND SC5.D_E_L_E_T_ != '*'
       JOIN SC6010 SC6 (NOLOCK) ON C6_FILIAL = C5_FILIAL AND C6_NUM = C5_NUM AND C6_PRODUTO = C0_PRODUTO AND SC6.D_E_L_E_T_ != '*'
-      JOIN SD2010 SD2 (NOLOCK) ON D2_FILIAL BETWEEN '' AND 'Z' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND SD2.D_E_L_E_T_ != '*' AND D2_TIPO = 'N'
+      JOIN SD2010 SD2 (NOLOCK) ON D2_FILIAL >= '' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND SD2.D_E_L_E_T_ != '*'
       JOIN SF4010 SF4 (NOLOCK) ON F4_FILIAL = '' AND F4_CODIGO = D2_TES AND SF4.D_E_L_E_T_ != '*'
       LEFT JOIN SC9010 SC9 (NOLOCK) ON C9_FILIAL = C0_FILIAL AND C9_RESERVA = C0_NUM AND C9_PRODUTO = C0_PRODUTO AND SC9.D_E_L_E_T_ != '*'
-     WHERE C0_FILIAL BETWEEN '' AND 'Z'
-       AND C0_LOCAL IN ('01','11')
+     WHERE C0_FILIAL >= ''
        AND (C0_QUANT > 0 OR C0_QTDPED > 0)
        AND C0_TIPO IN ('LB')
-       AND SC0.D_E_L_E_T_ != '*'       
+       AND SC0.D_E_L_E_T_ != '*'     
+
+    ORDER BY C0_FILIAL, C0_NUM  
 
     EndSql
 
@@ -2653,4 +2669,136 @@ Local cUpdate
     End
 
     (cAlias)->(DBCloseArea())
+Return Nil
+
+/*/{Protheus.doc} nomeStaticFunction
+    (long_description)
+    @type  Static Function
+    @author user
+    @since 01/06/2022
+    @version version
+    @param param_name, param_type, param_descr
+    @return return_var, return_type, return_description
+    @example
+    (examples)
+    @see (links_or_references)
+/*/
+Static Function AmaResShow()
+Local lAmarra := .T.
+Local cFilBkp := cFilAnt
+Local oLockPV
+
+    If _cAlias2 == Nil
+        _cAlias2 := GetNextAlias()
+    Else
+        If Select(_cAlias2) > 0
+            (_cAlias2)->(DBCloseArea())
+        End
+    End
+
+    BeginSql Alias _cAlias2
+    %NoParser%
+
+    select cpv.pedido, cpv.cep, cpv.cepentrega, C6_NUM, C6_ITEM, C6_PRODUTO, C6_RESERVA, C6_QTDRESE, C6_QTDEMP,
+           C9_FILIAL, C9_PEDIDO, C9_ITEM, C9_SEQUEN, C9_PRODUTO, C9_BLEST, C9_BLCRED, SC9.R_E_C_N_O_ RECNOSC9, C9_DATALIB,
+           C0_FILIAL, C0_NUM, C0_LOCAL, C0_QUANT, C0_QTDPED
+      from cabecalho_pedidos_venda cpv (nolock)
+      JOIN SC5010 SC5 (NOLOCK) ON C5_FILIAL = '' AND C5_NUM = cpv.pedido AND SC5.D_E_L_E_T_ != '*' AND C5_MMCANCE != 'S'
+      join items_do_pedido_de_venda ipv (nolock) on ipv.pedido = cpv.pedido and coalesce(ipv.cancelado,'') != 'S'
+      JOIN SC6010 SC6 (NOLOCK) ON C6_FILIAL = '' AND C6_NUM = ipv.pedido 
+                              AND (C6_MMITBRI != '' AND C6_MMITBRI = ipv.item 
+                                OR C6_MMITBRI = '' AND C6_PRODUTO = ipv.cod_produto
+                                OR C6_MMITBRI = '' AND C6_ITEM = RIGHT('00' + ipv.item,2))
+                              AND SC6.D_E_L_E_T_ != '*'
+                              AND C6_MMCANC != 'S'
+                              AND C6_RESERVA != ''
+                              AND NOT EXISTS (SELECT 1 FROM SD2010 SD2 (NOLOCK) WHERE D2_FILIAL >= '' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND SD2.D_E_L_E_T_ != '*')
+    JOIN SC0010 SC0 (NOLOCK) ON C0_FILIAL >= '' AND C0_NUM = C6_RESERVA AND C0_DOCRES = C6_NUM AND C0_PRODUTO = C6_PRODUTO AND SC0.D_E_L_E_T_ != '*'
+    LEFT JOIN SC9010 SC9 (NOLOCK) ON C9_FILIAL >= '' AND C9_PEDIDO = C6_NUM AND C9_ITEM = C6_ITEM AND C9_PRODUTO = C6_PRODUTO AND SC9.D_E_L_E_T_ != '*'
+    where cpv.created_at >= '2022-02-01 00:00:00'
+    and (cpv.cep = '00099123' or cpv.cepentrega = '00099123')
+    and coalesce(cpv.cancelado,'') != 'S'
+    AND (C6_QTDRESE = 0 OR (C0_QUANT = 0 AND C0_QTDPED = 0))
+    //AND C0_QUANT > 0
+
+    EndSql
+
+    While !(_cAlias2)->(Eof())
+        If !Empty((_cAlias2)->C9_FILIAL)
+            oLockPV := TMMLockSalesOrder():New()
+            //If (_cAlias2)->C9_DATALIB < Dtos(Date())
+            If oLockPV:Lock((_cAlias2)->C6_NUM, {(_cAlias2)->C6_PRODUTO})
+                U_ExcluiLib((_cAlias2)->C6_NUM, (_cAlias2)->C6_ITEM, (_cAlias2)->C6_PRODUTO, .T.)
+                DbSelectArea("SC6")
+                SC6->(dbSetOrder(2))
+                if SC6->(dbSeek(xFilial("SC6") + (_cAlias2)->C6_PRODUTO + (_cAlias2)->C6_NUM))
+                    RecLock("SC6", .F.)
+                        SC6->C6_RESERVA	:= ''   
+                        SC6->C6_QTDRESE	:= 0
+                    SC6->(MsUnLock())
+                    SC6->(DBCommit())
+                End
+
+                oLockPV:Unlock()
+            End
+            FreeObj(oLockPV)
+        End
+
+        (_cAlias2)->(DBskip())
+    End
+    
+    (_cAlias2)->(DBCloseArea())
+
+    BeginSql Alias _cAlias2
+    %NoParser%
+
+    select cpv.pedido, cpv.cep, cpv.cepentrega, C6_NUM, C6_ITEM, C6_PRODUTO, C6_RESERVA, C6_QTDRESE, C6_QTDEMP,
+           C9_FILIAL, C9_PEDIDO, C9_ITEM, C9_SEQUEN, C9_PRODUTO, C9_BLEST, C9_BLCRED, SC9.R_E_C_N_O_ RECNOSC9, 
+           C0_FILIAL, C0_NUM, C0_QUANT, C0_QTDPED, C0_LOCAL
+      from cabecalho_pedidos_venda cpv (nolock)
+      JOIN SC5010 SC5 (NOLOCK) ON C5_FILIAL = '' AND C5_NUM = cpv.pedido AND SC5.D_E_L_E_T_ != '*' AND C5_MMCANCE != 'S'
+      join items_do_pedido_de_venda ipv (nolock) on ipv.pedido = cpv.pedido and coalesce(ipv.cancelado,'') != 'S'
+      JOIN SC6010 SC6 (NOLOCK) ON C6_FILIAL = '' AND C6_NUM = ipv.pedido 
+                              AND (C6_MMITBRI != '' AND C6_MMITBRI = ipv.item 
+                                OR C6_MMITBRI = '' AND C6_PRODUTO = ipv.cod_produto
+                                OR C6_MMITBRI = '' AND C6_ITEM = RIGHT('00' + ipv.item,2))
+                              AND SC6.D_E_L_E_T_ != '*'
+                              AND C6_MMCANC != 'S'
+                              AND C6_RESERVA = ''
+                              AND NOT EXISTS (SELECT 1 FROM SD2010 SD2 (NOLOCK) WHERE D2_FILIAL >= '' AND D2_PEDIDO = C6_NUM AND D2_ITEMPV = C6_ITEM AND D2_COD = C6_PRODUTO AND SD2.D_E_L_E_T_ != '*')
+    JOIN SC0010 SC0 (NOLOCK) ON C0_FILIAL >= '' AND C0_DOCRES = C6_NUM AND C0_PRODUTO = C6_PRODUTO AND SC0.D_E_L_E_T_ != '*'
+    LEFT JOIN SC9010 SC9 (NOLOCK) ON C9_FILIAL >= '' AND C9_PEDIDO = C6_NUM AND C9_ITEM = C6_ITEM AND C9_PRODUTO = C6_PRODUTO AND SC9.D_E_L_E_T_ != '*'
+    where cpv.created_at >= '2022-02-01 00:00:00'
+    and (cpv.cep = '00099123' or cpv.cepentrega = '00099123')
+    and coalesce(cpv.cancelado,'') != 'S'
+
+    EndSql
+
+    If !(_cAlias2)->(Eof())
+        While !(_cAlias2)->(Eof())
+            lAmarra := .T.
+
+            If !Empty((_cAlias2)->C9_FILIAL)
+                U_ExcluiLib((_cAlias2)->C6_NUM, (_cAlias2)->C6_ITEM, (_cAlias2)->C6_PRODUTO, .T.)
+
+                DbSelectArea("SC9")
+                DbSetOrder(1)
+
+                If DBSeek((_cAlias2)->C9_FILIAL + (_cAlias2)->C9_PEDIDO + (_cAlias2)->C9_ITEM + (_cAlias2)->C9_SEQUEN + (_cAlias2)->C9_PRODUTO)
+                    lAmarra := .F.
+                End
+            End
+
+            If lAmarra
+                cFilant := (_cAlias2)->C0_FILIAL
+                U_MM019((_cAlias2)->C6_NUM, (_cAlias2)->C0_NUM, (_cAlias2)->C6_PRODUTO, (_cAlias2)->C0_LOCAL)
+            End
+
+            (_cAlias2)->(DBSkip())
+        End
+    End
+
+    (_cAlias2)->(DBCloseArea())
+
+    cFilAnt := cFilBkp
 Return Nil

@@ -38,7 +38,7 @@ User Function MM537(serviceDeskId,requestTypeId,summary,description,acustomfield
     Aadd(aHeader, "Cache-Control: no-cache")
     //https://developer.atlassian.com/cloud/jira/platform/basic-auth-for-rest-apis/
     //BASE64 encode the string: protheus@madeiramadeira.com.br:HKRjF8qZsJUPXVsn67kR36CD
-	Aadd(aHeader, "Authorization: Basic am9hby5nb21lc0BtYWRlaXJhbWFkZWlyYS5jb20uYnI6QWUxd0tYT3pzaEpWZ2YwdzhBNjFCQ0I4")
+	Aadd(aHeader, "Authorization: Basic cHJvdGhldXNAbWFkZWlyYW1hZGVpcmEuY29tLmJyOkIxamdkWkRCcU5kWmJ5Tk42Q1hRNjc4RA==")
     cUrl:= GetNewPar("MM_URLJIRA","https://madeiramadeira.atlassian.net")
 
     cBodyOut:= '{'

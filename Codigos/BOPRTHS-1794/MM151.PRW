@@ -1,4 +1,4 @@
-#include "protheus.ch"
+ #include "protheus.ch"
 #include "topconn.ch"
 #include "tbiconn.ch"
 
@@ -77,7 +77,7 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 			Aadd(acustomfield, {"customfield_10640", AllTrim(M->RA_TELEFON)})  //"Telefone" Opcional
 		endif
 		summary := "Chamado de Desligamento do colaborador " + AllTrim(M->RA_NOME) + ", CARGO: " + AllTrim(GetCargo(M->RA_CARGO)) + "."
-		description := "O funcionario " + AllTrim(M->RA_NOME) + " foi demitido, EMAIL: " + AllTrim(RA_EMAIL) + " CARGO: " + AllTrim(GetCargo(M->RA_CARGO)) + "."
+		description := "O funcionario " + AllTrim(M->RA_NOME) + " foi demitido, EMAIL: " + AllTrim(RA_MAILINT) + " CARGO: " + AllTrim(GetCargo(M->RA_CARGO)) + "."
 
 		lRet:=U_MM537(serviceDeskId,requestTypeId,summary,description,acustomfield)
 		
@@ -146,12 +146,13 @@ Return cDescCarg
 	@since 19/05/2022
 	@version 1.0
 	@param cDiretoria
-	@return cDir
+	@return cDir'
 /*/
 Static Function GetDiretoria(cDiretoria)
 	Local cDir := ""
 	Local aRetSx5
 	Local natual
+	RpcClearEnv()
 	
 	RPCSetType(3)
     lEnv := RPCSetEnv('01', '010101')
@@ -163,6 +164,4 @@ Static Function GetDiretoria(cDiretoria)
 			cDir := aRetSx5[nAtual][4]
 		EndIf
     NEXT
-
-	RpcClearEnv()
 Return cDir

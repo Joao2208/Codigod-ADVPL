@@ -114,7 +114,16 @@
 		},
 		{
 			"label": "U_MM992"
+		},
+		{
+			"label": "U_EnvioOC"
+		},
+		{
+			"label": "U_fValidpreco"
+		},
+		{
+			"label": "U_SIGAMDI"
 		}
 	],
-	"lastProgramExecuted": "U_MM992"
+	"lastProgramExecuted": "U_EnvioOC"
 }
