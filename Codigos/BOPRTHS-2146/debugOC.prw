@@ -15,6 +15,6 @@ User Function EnvioOC()
     
     RPCSetEnv('01','010101')
 
-    lTentativ := U_fIntegra("8858561", 'PURCHASE_ORDER_VIEWED_PROTHEUS')
+    lTentativ := U_fIntegra("8747623  ", 'PURCHASE_ORDER_UPDATED_PROTHEUS')
 
 Return lTentativ

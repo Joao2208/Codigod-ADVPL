@@ -29,13 +29,11 @@ class TPurchaseOrderItem
 	data tipo_assistencia
 	data agrupa
 	data armazem
-	data valipi 
-	data numsc 
+	data valor_ipi 
+	data numero_sc 
 	data qtsegum 
-	data vldesc 
-	data obsitem 
-	data despesa 
-	data seguro 
+	data valor_desconto 
+	data obs_item 
 	data icms 
 	
 	method new() constructor
@@ -71,11 +69,11 @@ method new() class TPurchaseOrderItem
 	::tipo_assistencia := ''
 	::agrupa := ''
 	::armazem := ''
-	::valipi := ''
-	::numsc := ''
+	::valor_ipi := ''
+	::numero_sc := ''
 	::qtsegum := ''
-	::vldesc := ''
-	::obsitem := ''
+	::valor_desconto := ''
+	::obs_item := ''
 	::icms := ''
 	
 return self

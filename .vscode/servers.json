@@ -6,30 +6,7 @@
 	"permissions": {
 		"authorizationtoken": ""
 	},
-	"connectedServer": {
-		"id": "56xkjcpesel2hrvxt3b1wzozdjzb9",
-		"type": "totvs_server_protheus",
-		"name": "ZB4Z6T_HMLG_04",
-		"port": 24114,
-		"address": "zb4z6t-HOM-protheus.totvscloud.com.br",
-		"buildVersion": "7.00.210324P",
-		"secure": true,
-		"includes": [
-			"C:\\Users\\JOAO.GOMES\\Documents\\GitHub\\protheus\\IncludesP11"
-		],
-		"environments": [
-			"ZB4Z6T_HOM_04"
-		],
-		"username": "JOAO.GOMES",
-		"environment": "ZB4Z6T_HOM_04",
-		"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOnMrSWdMZ3dmSEdqMm9FcU93bzBRNElxMCszaHNsSFRpVjlERnljazUzc3M9|djI6MTY1NDUxODM3MTowOjE6MQ==.Uze0fD2G1HXk3esPrJxcHfaqrkEtU/2I2lgiFlP2eL1UnPCvLzLLfhRmlcNxNVP0Shf93KaR1HN3iwMpmjnp21JkEOlBQD1rV9AzDMgiFfv2PceIdm7jffB1go9pw2Fuu+kZZJ3zkQ8gTnJk7QByr54m8N72l/SCQ547KKQTI4RrgYY5PVe9hmnV8y8Wt5QGiMw0fXwppcWO2bw1m78GmZ7sHHUJM2vumwZOIGUIE3o9dd1D3mcdYd0gNbMrUWAhh28vnFJl0soM3rYcuLgwMffepT03vKivDlKQBm3gHTjh8UMw9btOqv+cMPaLyQeNpHQCLTOUE7/mhNWnMJE5rg==",
-		"informations": {
-			"permissions": [],
-			"errorMessage": "",
-			"environmentDetectedType": "totvs_server_protheus",
-			"serverDetectedType": "totvs_server_protheus"
-		}
-	},
+	"connectedServer": {},
 	"configurations": [
 		{
 			"id": "sxrimhrk1dkx7tlq0mo2mgm7npn3r",
@@ -101,7 +78,7 @@
 			],
 			"username": "JOAO.GOMES",
 			"environment": "ZB4Z6T_HOM_04",
-			"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOnMrSWdMZ3dmSEdqMm9FcU93bzBRNElxMCszaHNsSFRpVjlERnljazUzc3M9|djI6MTY1NDUxODM3MTowOjE6MQ==.Uze0fD2G1HXk3esPrJxcHfaqrkEtU/2I2lgiFlP2eL1UnPCvLzLLfhRmlcNxNVP0Shf93KaR1HN3iwMpmjnp21JkEOlBQD1rV9AzDMgiFfv2PceIdm7jffB1go9pw2Fuu+kZZJ3zkQ8gTnJk7QByr54m8N72l/SCQ547KKQTI4RrgYY5PVe9hmnV8y8Wt5QGiMw0fXwppcWO2bw1m78GmZ7sHHUJM2vumwZOIGUIE3o9dd1D3mcdYd0gNbMrUWAhh28vnFJl0soM3rYcuLgwMffepT03vKivDlKQBm3gHTjh8UMw9btOqv+cMPaLyQeNpHQCLTOUE7/mhNWnMJE5rg==",
+			"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOjJESlpSRkZWUURNWGMwaU1FcytSNnRSTDAzOUU5WkRRTUozbWpqNmhQZ0E9|djI6MTY1NTIxODQ2MDowOjE6MQ==.nsJgHvZqRmeAB1w5KqzzUVjQJSH2aL42TUgNOxLt9sJt4YSwKUzecAf5P7laKYnyJm0byndozNeyVONMmjEiPugFXVXaNJJ68hhKz+2YUawO2PS9JCFrX+dqaPIU7z0az7KweRSr7yeWDJySWWiNW15XOwObOrwE2kMOxNaXwRYe+T0CsEk5/+3BsSzx8Tm1jEi6E3w0fita7SqVdXd8AgQKUz+pIkGpuHweJM7PknUfyqFC2VIvaSbLngB4zieS32JI7WytuVo09fdHvJ0tYIIo54AuLy6azwu4zV93hBjtMgFGrCCYNAxtVP+j9gk/DtLgOgWjKS6wk/KAuluUnQ==",
 			"informations": {
 				"permissions": [],
 				"errorMessage": "",
@@ -157,7 +134,7 @@
 			"56xkjcpesel2hrvxt3b1wzozdjzb9:ZB4Z6T_HOM_04",
 			{
 				"id": "56xkjcpesel2hrvxt3b1wzozdjzb9",
-				"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOnMrSWdMZ3dmSEdqMm9FcU93bzBRNElxMCszaHNsSFRpVjlERnljazUzc3M9|djI6MTY1NDUxODM3MTowOjE6MQ==.Uze0fD2G1HXk3esPrJxcHfaqrkEtU/2I2lgiFlP2eL1UnPCvLzLLfhRmlcNxNVP0Shf93KaR1HN3iwMpmjnp21JkEOlBQD1rV9AzDMgiFfv2PceIdm7jffB1go9pw2Fuu+kZZJ3zkQ8gTnJk7QByr54m8N72l/SCQ547KKQTI4RrgYY5PVe9hmnV8y8Wt5QGiMw0fXwppcWO2bw1m78GmZ7sHHUJM2vumwZOIGUIE3o9dd1D3mcdYd0gNbMrUWAhh28vnFJl0soM3rYcuLgwMffepT03vKivDlKQBm3gHTjh8UMw9btOqv+cMPaLyQeNpHQCLTOUE7/mhNWnMJE5rg=="
+				"token": "djM6NTZ4a2pjcGVzZWwyaHJ2eHQzYjF3em96ZGp6Yjk6MTp6YjR6NnQtSE9NLXByb3RoZXVzLnRvdHZzY2xvdWQuY29tLmJyOjI0MTE0OjE6Ny4wMC4yMTAzMjRQOjM=:djE6WkI0WjZUX0hPTV8wNDpKT0FPLkdPTUVTOjJESlpSRkZWUURNWGMwaU1FcytSNnRSTDAzOUU5WkRRTUozbWpqNmhQZ0E9|djI6MTY1NTIxODQ2MDowOjE6MQ==.nsJgHvZqRmeAB1w5KqzzUVjQJSH2aL42TUgNOxLt9sJt4YSwKUzecAf5P7laKYnyJm0byndozNeyVONMmjEiPugFXVXaNJJ68hhKz+2YUawO2PS9JCFrX+dqaPIU7z0az7KweRSr7yeWDJySWWiNW15XOwObOrwE2kMOxNaXwRYe+T0CsEk5/+3BsSzx8Tm1jEi6E3w0fita7SqVdXd8AgQKUz+pIkGpuHweJM7PknUfyqFC2VIvaSbLngB4zieS32JI7WytuVo09fdHvJ0tYIIo54AuLy6azwu4zV93hBjtMgFGrCCYNAxtVP+j9gk/DtLgOgWjKS6wk/KAuluUnQ=="
 			}
 		]
 	],

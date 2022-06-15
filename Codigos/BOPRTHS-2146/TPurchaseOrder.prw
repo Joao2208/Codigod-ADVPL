@@ -1,5 +1,7 @@
 #include 'totvs.ch'
 #include 'topconn.ch'
+#INCLUDE "MATR110.CH"
+#include "rptdef.ch"
 
 class TPurchaseOrder
 	
@@ -16,13 +18,15 @@ class TPurchaseOrder
 	data expresso
 	data itens
 	data lojista_retira
-	data telfil
-	data telfor
+	data telefone_filial_madeira
+	data telefone_fornecedor
 	data desconto
-	data condpgto
-	data vltotal
+	data condicao_pagamento
+	data valor_total
 	data despesa
-	data vlseg
+	data valor_seguro
+	data descricao_pagamento
+	data nTotIcms
 	
 	// --------------- DECLARACAO DE METODOS ---------------
 	method new(oObj) CONSTRUCTOR
@@ -48,13 +52,15 @@ method new(oObjDoc) class TPurchaseOrder
 	::numero_ordem_compra := ''
 	::expresso := 0
 	::lojista_retira := ''
-	::telfil := ''
-	::telfor := ''
+	::telefone_filial_madeira := ''
+	::telefone_fornecedor := ''
 	::desconto := ''
-	::condpgto := ''
-	::vltotal := ''
+	::condicao_pagamento := ''
+	::valor_total := ''
 	::despesa := ''
-	::vlseg := ''
+	::valor_seguro := ''
+	::descricao_pagamento := ''
+	::nTotIcms := ''
 	
 	::itens := {}
 	
@@ -71,13 +77,15 @@ method new(oObjDoc) class TPurchaseOrder
 		::numero_ordem_compra := IIF(ValType(oObjDoc:numero_ordem_compra) != nil, oObjDoc:numero_ordem_compra, "")
 		::expresso := IIF(ValType(oObjDoc:expresso) != nil, oObjDoc:expresso, 0)
 		::lojista_retira := IIF(ValType(oObjDoc:lojista_retira) != nil, oObjDoc:lojista_retira, "")
-		::telfil := IIF(ValType(oObjDoc:telfil) != nil, oObjDoc:telfil, "")
-		::telfor := IIF(ValType(oObjDoc:telfor) != nil, oObjDoc:telfor, "")
+		::telefone_filial_madeira := IIF(ValType(oObjDoc:telefone_filial_madeira) != nil, oObjDoc:telefone_filial_madeira, "")
+		::telefone_fornecedor := IIF(ValType(oObjDoc:telefone_fornecedor) != nil, oObjDoc:telefone_fornecedor, "")
 		::desconto := IIF(ValType(oObjDoc:desconto) != nil, oObjDoc:desconto, "")
-		::condpgto := IIF(ValType(oObjDoc:condpgto) != nil, oObjDoc:condpgto, "")
-		::vltotal := IIF(ValType(oObjDoc:vltotal) != nil, oObjDoc:vltotal, "")
+		::condicao_pagamento := IIF(ValType(oObjDoc:condicao_pagamento) != nil, oObjDoc:condicao_pagamento, "")
+		::valor_total := IIF(ValType(oObjDoc:valor_total) != nil, oObjDoc:valor_total, "")
 		::despesa := IIF(ValType(oObjDoc:despesa) != nil, oObjDoc:despesa, "")
-		::vlseg := IIF(ValType(oObjDoc:vlseg) != nil, oObjDoc:vlseg, "")
+		::valor_seguro := IIF(ValType(oObjDoc:valor_seguro) != nil, oObjDoc:valor_seguro, "")
+		::descricao_pagamento := IIF(ValType(oObjDoc:descricao_pagamento) != nil, oObjDoc:descricao_pagamento, "")
+		::nTotIcms := IIF(ValType(oObjDoc:nTotIcms) != nil, oObjDoc:nTotIcms, "")
 		
 		::itens := IIF(ValType(oObjDoc:itens) != nil, oObjDoc:itens, {})
 	endif
@@ -89,8 +97,12 @@ method get(cNumOC) class TPurchaseOrder
 	local cQry
 	local cAls := GetNextAlias()
 	Local cC6DEL := ""	//Alterado por Daniel Bueno - 08.02.2021
+	Local cFiltro := ""
+	//Local aTotalIcms := {}
 	
 	::new()
+	MaFisEnd()
+	GetItensPC(cNumOC,,cFiltro)
 	
 	//Alteracoes na query: adicionado NOLOCK nas tabelas e caso a rotina MM425THD esteja na pilha, desconsidera o D_E_L_E_T_ da SC6 para correto processamento no Nexus - Daniel Bueno - 09.02.21
 	if Empty(cNumOC)
@@ -105,9 +117,11 @@ method get(cNumOC) class TPurchaseOrder
 				"	A5_CODPRF, A5_MMDEFOR, A5_XCONV, " +;
 				"	A2_NFPRZ, A2_DDD, A2_TEL, " +;
 				"	ean, " +;
-				"	B1_MMDESC, B1_AGRUPA " +;
+				"	B1_MMDESC, B1_AGRUPA, " +;
+				"	E4_DESCRI " +;
 				" FROM " +;
 				" SC7010 SC7 (NOLOCK) " +;
+				" LEFT JOIN SE4010 SE4 (NOLOCK) ON SE4.E4_FILIAL = '      ' AND SE4.E4_CODIGO = SC7.C7_COND" +;
 				" LEFT JOIN SC1010 SC1 (NOLOCK) ON SC1.C1_FILIAL = SC7.C7_FILIAL AND SC1.C1_NUM = SC7.C7_NUMSC AND SC1.C1_ITEM = SC7.C7_ITEMSC AND SC1.C1_PEDIDO = SC7.C7_NUM AND SC1.D_E_L_E_T_ = '' " +;
 				" INNER JOIN SB1010 SB1 (NOLOCK) ON SB1.B1_FILIAL = '"+xFilial("SB1")+"' AND SB1.B1_COD = SC7.C7_PRODUTO " +;
 				" INNER JOIN SA2010 SA2 (NOLOCK) ON SA2.A2_FILIAL = '"+xFilial("SA2")+"' AND SA2.A2_COD = SC7.C7_FORNECE AND SA2.A2_LOJA = SC7.C7_LOJA " +;
@@ -146,14 +160,17 @@ method get(cNumOC) class TPurchaseOrder
 				::numero_ordem_compra := AllTrim((cAls)->C7_NUM)
 				::expresso := IIF((cAls)->C5_EXPRESS == 'S', 1, 0)
 				::lojista_retira := (cAls)->C7_MMLJRET 
-				//::telfil := FWSM0Util():GetSM0Data(SubStr((cAls)->C7_FILIAL, 1, 2), (cAls)->C7_FILIAL) 
-				::telfor := "(" + AllTrim((cAls)->A2_DDD) + ") " + AllTrim((cAls)->A2_TEL)
-				::desconto := AllTrim((cAls)->C7_VLDESC)
-				::condpgto := AllTrim((cAls)->C7_COND)
-				::vltotal := AllTrim((cAls)->C7_BASIMP5)
-				::despesa := AllTrim((cAls)->C7_DESPESA)
-				::vlseg := AllTrim((cAls)->C7_SEGURO)
-				
+				::telefone_filial_madeira := FWSM0Util():GetSM0Data(SubStr((cAls)->C7_FILIAL, 1, 2), (cAls)->C7_FILIAL)[16][2]
+				::telefone_fornecedor := "(" + AllTrim((cAls)->A2_DDD) + ") " + AllTrim((cAls)->A2_TEL)
+				::desconto := (cAls)->C7_VLDESC
+				::condicao_pagamento := AllTrim((cAls)->C7_COND)
+				::descricao_pagamento := AllTrim((cAls)->E4_DESCRI) 
+				::valor_total := (cAls)->C7_BASIMP5
+				::despesa := (cAls)->C7_DESPESA
+				::valor_seguro := (cAls)->C7_SEGURO
+				::nTotIcms   := MaFisRet(,'NF_VALICM')
+
+
 				while !(cAls)->(eof())
 				
 					oIt := TPurchaseOrderItem():new()
@@ -179,15 +196,15 @@ method get(cNumOC) class TPurchaseOrder
 					oIt:unidade_conversao := (cAls)->A5_XCONV
 					oIt:ean := AllTrim((cAls)->ean)
 					oIt:operacao := AllTrim((cAls)->C7_OPERS)
-					oIt:cst := (cAls)->C7_CST
+					oIt:cst := AllTrim((cAls)->C7_CST)
 					oIt:tipo_assistencia := (cAls)->C7_TIPAT
 					oIt:agrupa := (cAls)->B1_AGRUPA
 					oIt:armazem := (cAls)->C7_LOCAL
-					oIt:valipi := (cAls)->C7_VALIPI
-					oIt:numsc := (cAls)->C7_NUMSC
+					oIt:valor_ipi := (cAls)->C7_VALIPI
+					oIt:numero_sc := (cAls)->C7_NUMSC
 					oIt:qtsegum := (cAls)->C7_QTSEGUM
-					oIt:vldesc := (cAls)->C7_VLDESC
-					oIt:obsitem := (cAls)->C7_OBS
+					oIt:valor_desconto := (cAls)->C7_VLDESC
+					oIt:obs_item := AllTrim((cAls)->C7_OBS)
 
 					AADD(::itens, oIt)
 					(cAls)->(dbSkip())
@@ -234,3 +251,61 @@ method getByNF(cFil, cNumDoc, cNumSer) class TPurchaseOrder
     (cAls)->(dbCloseArea())
     
 return ::get(cNumOC)
+
+
+Static Function GetItensPC(cPedido,cItem,cSequen,cFiltro)
+
+Local aArea		:= GetArea()
+Local aAreaSC7	:= SC7->(GetArea())
+Local cValid	:= ""
+Local nPosRef	:= 0
+Local nItem		:= 0
+Local cItemDe	:= IIf(cItem==Nil,'',cItem)
+Local cItemAte	:= IIf(cItem==Nil,Repl('Z',Len(SC7->C7_ITEM)),cItem)
+Local cRefCols	:= ''
+Local nX
+Local cFilSC7   := '010104'//Filial('SC7')
+Static aStru	:= FWFormStruct(3,"SC7")[1]
+
+DEFAULT cSequen	:= ""
+DEFAULT cFiltro	:= ""
+
+dbSelectArea("SC7")
+dbSetOrder(1)
+If dbSeek(cFilSC7+cPedido+cItemDe+Alltrim(cSequen))
+	MaFisEnd()
+	MaFisIni(SC7->C7_FORNECE,SC7->C7_LOJA,"F","N","R",{})
+	While !Eof() .AND. SC7->C7_FILIAL+SC7->C7_NUM == cFilSC7+cPedido .AND. ;
+			SC7->C7_ITEM <= cItemAte .AND. (Empty(cSequen) .OR. cSequen == SC7->C7_SEQUEN)
+
+		// Nao processar os Impostos se o item possuir residuo eliminado  
+		If &cFiltro
+			SC7->(dbSkip())
+			Loop
+		EndIf
+            
+		// Inicia a Carga do item nas funcoes MATXFIS  
+		nItem++
+		MaFisIniLoad(nItem)
+
+		For nX := 1 To Len(aStru)
+			cValid	:= StrTran(UPPER(GetCbSource(aStru[nX][7]))," ","")
+			cValid	:= StrTran(cValid,"'",'"')
+			If "MAFISREF" $ cValid .And. !(aStru[nX][14]) //campos que não são virtuais
+				nPosRef  := AT('MAFISREF("',cValid) + 10
+				cRefCols := Substr(cValid,nPosRef,AT('","MT120",',cValid)-nPosRef )
+				// Carrega os valores direto do SC7.           
+				MaFisLoad(cRefCols,&("SC7->"+ aStru[nX][3]),nItem)
+			EndIf
+		Next nX		
+
+		MaFisEndLoad(nItem,2)
+		
+		SC7->(dbSkip())
+	End
+EndIf
+
+RestArea(aAreaSC7)
+RestArea(aArea)
+
+Return .T.

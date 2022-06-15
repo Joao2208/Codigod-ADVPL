@@ -123,6 +123,9 @@
 		},
 		{
 			"label": "U_SIGAMDI"
+		},
+		{
+			"label": "U_GetICMS"
 		}
 	],
 	"lastProgramExecuted": "U_EnvioOC"
