@@ -26,7 +26,7 @@ class TPurchaseOrder
 	data despesa
 	data valor_seguro
 	data descricao_pagamento
-	data nTotIcms
+	data valor_icms
 	
 	// --------------- DECLARACAO DE METODOS ---------------
 	method new(oObj) CONSTRUCTOR
@@ -60,7 +60,7 @@ method new(oObjDoc) class TPurchaseOrder
 	::despesa := ''
 	::valor_seguro := ''
 	::descricao_pagamento := ''
-	::nTotIcms := ''
+	::valor_icms := ''
 	
 	::itens := {}
 	
@@ -85,7 +85,7 @@ method new(oObjDoc) class TPurchaseOrder
 		::despesa := IIF(ValType(oObjDoc:despesa) != nil, oObjDoc:despesa, "")
 		::valor_seguro := IIF(ValType(oObjDoc:valor_seguro) != nil, oObjDoc:valor_seguro, "")
 		::descricao_pagamento := IIF(ValType(oObjDoc:descricao_pagamento) != nil, oObjDoc:descricao_pagamento, "")
-		::nTotIcms := IIF(ValType(oObjDoc:nTotIcms) != nil, oObjDoc:nTotIcms, "")
+		::valor_icms := IIF(ValType(oObjDoc:valor_icms) != nil, oObjDoc:valor_icms, "")
 		
 		::itens := IIF(ValType(oObjDoc:itens) != nil, oObjDoc:itens, {})
 	endif
@@ -168,7 +168,7 @@ method get(cNumOC) class TPurchaseOrder
 				::valor_total := (cAls)->C7_BASIMP5
 				::despesa := (cAls)->C7_DESPESA
 				::valor_seguro := (cAls)->C7_SEGURO
-				::nTotIcms   := MaFisRet(,'NF_VALICM')
+				::valor_icms   := MaFisRet(,'NF_VALICM')
 
 
 				while !(cAls)->(eof())
