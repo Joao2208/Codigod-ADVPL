@@ -5,10 +5,11 @@
 //Envia E-mail Funcionario Demitido                         
 User Function MM151()
 Local _cRet := ""
-//Local cCCFin := GetMV("MM_MM151") // Centros de custo financeiro
+Local cMail
+Local cCCFin := GetMV("MM_MM151") // Centros de custo financeiro
 Local lRet := .F.
-Local serviceDeskId :=  "6" 	//cValToChar(GetMV("MM_151SID"))
-Local requestTypeId := 	"582"	//cValToChar(GetMV("MM_151RID"))
+Local serviceDeskId := cValToChar(GetMV("MM_151SID")) // 6
+Local requestTypeId := cValToChar(GetMV("MM_151RID")) // 582
 Local summary
 Local description
 Local acustomfield := {}
@@ -31,20 +32,16 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 	_cRet := M->RA_DEMITID
 		
 	If M->RA_DEMITID == "1"
-		/*
 		If Alltrim(M->RA_CC) $ cCCFin
-			cMail := "chamados@madeiramadeira.com.br;protheus@madeiramadeira.com.br;chamados.jira@madeiramadeira.com.br;alertadesligamento@madeiramadeira.com.br"
-		Else
-		  	cMail := "chamados@madeiramadeira.com.br;protheus@madeiramadeira.com.br;chamados.jira@madeiramadeira.com.br"
+			cMail :="desligamentos.fin@madeiramadeira.com.br"
 		EndIf
 		If M->RA_MAILSO == 'S'
-			cMail += ";"+Alltrim(GetMV("MM_MAILSTO"))
-		EndIf
-		*/
-		//		cMail += ";"+Alltrim(GetMV("MM_MAILMUR"))//cemuralha.recepcao@gmail.com    
-		/*
-		_cRet := "3"
-		
+			If Empty(cMail)
+				cMail := "desligamentos.stok@madeiramadeira.com.br"
+			else
+				cMail += ";desligamentos.stok@madeiramadeira.com.br"
+			ENDIF
+		EndIf  
 			U_MM020(GetMV("MV_RELSERV"),;
 					GetMV("MV_RELACNT"),;
 					GetMV("MV_RELAUSR" ,,"madeiramadeira"),;
@@ -52,9 +49,7 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 					GetMV("MV_RELFROM"),;
 					cMail,;
 					"O Funcionário " + M->RA_NOMECMP + " foi Demitido.",;
-					"O Funcionário " + M->RA_NOMECMP + " - " + Posicione("SRJ",1,xfilial("SRJ")+M->RA_CODFUNC,"RJ_DESC") + " foi Demitido. Email do funcionário: " + M->RA_MAILINT + ".")
-			M->RA_DEMITID := "3"
-		/*/   
+					"O Funcionário " + M->RA_NOMECMP + " - " + Posicione("SRJ",1,xfilial("SRJ")+M->RA_CODFUNC,"RJ_DESC") + " foi Demitido. Email do funcionário: " + M->RA_MAILINT + ".") 
 		  
 		//Coleta de dados para o preenchimento do campo acustonfield
 		Aadd(acustomfield, {"customfield_10634", AllTrim(M->RA_NOME)})  //"Nome Completo Funcionario", Obrigatório
