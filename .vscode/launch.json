@@ -126,7 +126,12 @@
 		},
 		{
 			"label": "U_GetICMS"
+		},
+		{
+			"args": [],
+			"label": "U_MM328"
 		}
 	],
-	"lastProgramExecuted": "SIGAMDI"
+	"lastProgramExecuted": "U_MM328",
+	"lastProgramArgumens": []
 }

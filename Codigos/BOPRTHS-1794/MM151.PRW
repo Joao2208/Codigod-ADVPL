@@ -8,8 +8,8 @@ Local _cRet := ""
 Local cMail
 Local cCCFin := GetMV("MM_MM151") // Centros de custo financeiro
 Local lRet := .F.
-Local serviceDeskId := cValToChar(GetMV("MM_151SID")) // 6
-Local requestTypeId := cValToChar(GetMV("MM_151RID")) // 582
+Local serviceDeskId := 6 //cValToChar(GetMV("MM_151SID")) // 6
+Local requestTypeId := 582 //cValToChar(GetMV("MM_151RID")) // 582
 Local summary
 Local description
 Local acustomfield := {}
@@ -43,10 +43,10 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 			ENDIF
 		EndIf  
 			U_MM020(GetMV("MV_RELSERV"),;
-					GetMV("MV_RELACNT"),;
+					"relatorios@madeiramadeira.com.br",;//GetMV("MV_RELACNT"),;
 					GetMV("MV_RELAUSR" ,,"madeiramadeira"),;
 					GetMV("MV_RELPSW") ,;
-					GetMV("MV_RELFROM"),;
+					"joao.gomes@madeiramadeira.com.br",;//GetMV("MV_RELFROM"),;
 					cMail,;
 					"O Funcionário " + M->RA_NOMECMP + " foi Demitido.",;
 					"O Funcionário " + M->RA_NOMECMP + " - " + Posicione("SRJ",1,xfilial("SRJ")+M->RA_CODFUNC,"RJ_DESC") + " foi Demitido. Email do funcionário: " + M->RA_MAILINT + ".") 
