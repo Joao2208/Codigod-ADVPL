@@ -23,7 +23,7 @@ User Function MM2208()
         endif
 
         If !lResp
-            cMensagem := "A Rotina MM328-Importacao de pedidos, identificou o pedido " + cPedido + " sem detalhes de pagamento enviados pelo Black Panter. Pedido pai:" + cPedidoPai +" PAYLOAD retornado do BP "+ cPayLoad //+"'" payload do bp.
+            cMensagem := "A Rotina MM328-Importacao de pedidos, identificou o pedido " + cPedido + " sem detalhes de pagamento enviados pelo Black Panter. Pedido pai: " + cPedidoPai +"- PAYLOAD retornado do BP: "+ cPayLoad //+"'" payload do bp.
             //JIRA (serviceDeskId,requestTypeId,summary                  ,description,acustomfield)
             Aadd(acustonfield3, {"customfield_11090", Val(cPedidoPai)})
             Aadd(acustonfield3, {"customfield_11196", '{"value":"Pedidos"}'})

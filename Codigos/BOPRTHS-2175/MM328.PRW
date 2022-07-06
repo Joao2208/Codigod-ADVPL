@@ -131,7 +131,7 @@ Local lDebug := .F.
                   or replace(cab.cep,'-','') = '00099123')     ) ) 
 	    and cab.pedido not in (select pedido from items_do_pedido_de_venda it (nolock) where it.protheus = '0' and it.tipo_frete = 3 )
        //and cab.juros > 0
-    //and cab.pedido in ('Z30303070','Z30303071','Z30303072','Z30303073') //TESTE CASHBACK
+    //  and cab.pedido in ('Z30303070','Z30303071','Z30303072','Z30303073') //TESTE CASHBACK
        //and left(cab.pedido, 2) = 'Z3'
        //and cab.erro = '0' 
   order by cab.data_compra 
@@ -1049,7 +1049,7 @@ Private lMSErroAuto 	:= .F.
                                 EndSql
 
                                 If (Empty((_cAlias2)->erro) .Or. (_cAlias2)->erro <> '2')
-                                    cMensagem += "A Rotina MM328-Importacao de pedidos, identificou o pedido " + cPedido + " sem detalhes de pagamento enviados pelo Black Panter. Pedido pai: '" + cPedidoPai +"' "+ oResp:ToJson()+"" //+ cRespPGTO +"'" payload do bp.
+                                    cMensagem += "A Rotina MM328-Importacao de pedidos, identificou o pedido " + cPedido + " sem detalhes de pagamento enviados pelo Black Panter. Pedido pai: " + cPedidoPai +" '" //+ cRespPGTO +"'" payload do bp.
                                     //JIRA (serviceDeskId,requestTypeId,summary                  ,description,acustomfield)
                                     Aadd(acustonfield3, {"customfield_11090", Val(cPedidoPai)})
                                     Aadd(acustonfield3, {"customfield_11196", '{"value":"Pedidos"}'})
