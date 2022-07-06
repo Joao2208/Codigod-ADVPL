@@ -16,8 +16,8 @@ Local _cRet := ""
 Local cMail
 Local cCCFin := GetMV("MM_MM151") // Centros de custo financeiro
 Local lRet := .F.
-Local serviceDeskId := cValToChar(GetMV("MM_151SID")) // PARQUINHO : 6 
-Local requestTypeId := cValToChar(GetMV("MM_151RID")) // PARQUINHO : 582
+Local serviceDeskId := cValToChar(GetMV("MM_151SID")) // 6
+Local requestTypeId := cValToChar(GetMV("MM_151RID")) // 582
 Local summary
 Local description
 Local acustomfield := {}
@@ -70,7 +70,7 @@ If ALLTRIM(FUNNAME())$"GPEA010/GPEA011"
 		Aadd(acustomfield, {"customfield_10761", Val(AllTrim(M->RA_MAT))})  //1234, Matrícula
 		Aadd(acustomfield, {"customfield_10671", AllTrim(GetCargo(M->RA_CARGO))})  //"Cargo", Obrigatório
 		Aadd(acustomfield, {"customfield_10197", AllTrim(GetCCusto(M->RA_CC))})  //"CC Descrição Centro de Custo", Obrigatório Centro de Custo
-		Aadd(acustomfield, {"customfield_11332", AllTrim(GetDiretoria(M->RA_MMDIRET, cFil))}) // "Diretoria", Obrigatório
+		Aadd(acustomfield, {"customfield_11332", AllTrim(GetDiretoria(M->RA_MMDIRET))}) // "Diretoria", Obrigatório
 		Aadd(acustomfield, {"customfield_10854", AllTrim(M->RA_EMAIL)})  //"email@pessoal", Opcional
 		Aadd(acustomfield, {"customfield_10859", AllTrim(M->RA_MAILSUP)})  //"email@gestor", Opcional
 		Aadd(acustomfield, {"customfield_10863", SubStr(cDataDemissa, 7, 4) + "-" + SubStr(cDataDemissa, 4, 2) + "-" + SubStr(cDataDemissa, 1, 2)})  //"2021-25-11", Data Demissão - Obrigatório
@@ -158,12 +158,13 @@ Return cDescCarg
 	@param cDiretoria
 	@return cDir'
 /*/
-Static Function GetDiretoria(cDiretoria,cFil)
+Static Function GetDiretoria(cDiretoria)
 	Local cDir := ""
 	Local aRetSx5
 	Local natual
 	
 	aRetSx5 := FwGetSx5("ZL")
+	
 	For nAtual := 1 To Len(aRetSx5)
         If AllTrim(aRetSx5[nAtual][3]) = AllTrim(cDiretoria)
 			cDir := aRetSx5[nAtual][4]
@@ -183,4 +184,3 @@ Static Function GetDiretoria(cDiretoria,cFil)
     	Next
 	EndIf
 Return cDir
-      
